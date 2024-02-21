@@ -2184,4 +2184,15 @@ border: 0;
 }
 
 
+.tab-pane {
+    width: 75%;
+}
+
+@media only screen and (max-width: 767px) {
+    .tab-pane {
+        width: 100%;
+    }
+}
+
+
 

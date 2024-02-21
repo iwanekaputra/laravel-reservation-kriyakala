@@ -96,7 +96,7 @@
                         </div>
 
                         <div class="tab-content" id="nav-tabContent">
-                            <div class="tab-pane fade show active text-center mt-5 w-75 mx-auto" id="nav-home"
+                            <div class="tab-pane fade show active text-center mt-5 mx-auto" id="nav-home"
                                 role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
                                 <div class="row justify-content-around">
                                     <div class="col-3 mt-2">
@@ -121,7 +121,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade text-center mt-5 w-75 mx-auto" id="nav-profile" role="tabpanel"
+                            <div class="tab-pane fade text-center mt-5 mx-auto" id="nav-profile" role="tabpanel"
                                 aria-labelledby="nav-profile-tab" tabindex="0">
                                 <div class="row justify-content-around">
                                     <div class="col-3 mt-2">
@@ -147,7 +147,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade text-center mt-5 w-75 mx-auto" id="nav-contact" role="tabpanel"
+                            <div class="tab-pane fade text-center mt-5 mx-auto" id="nav-contact" role="tabpanel"
                                 aria-labelledby="nav-contact-tab" tabindex="0">
                                 <div class="row justify-content-center">
                                     <div class="col-3 mt-2">
@@ -183,7 +183,7 @@
 
                                 </div>
                             </div>
-                            <div class="tab-pane fade text-center mt-5 w-75 mx-auto" id="nav-group" role="tabpanel"
+                            <div class="tab-pane fade text-center mt-5 mx-auto" id="nav-group" role="tabpanel"
                                 aria-labelledby="nav-group-tab" tabindex="0">
                                 <div class="row justify-content-center">
                                     <div class="col-3 mt-2">
@@ -218,8 +218,8 @@
 
                                 </div>
                             </div>
-                            <div class="tab-pane fade text-center mt-5 w-75 mx-auto" id="nav-prewedding"
-                                role="tabpanel" aria-labelledby="nav-prewedding-tab" tabindex="0">
+                            <div class="tab-pane fade text-center mt-5 mx-auto" id="nav-prewedding" role="tabpanel"
+                                aria-labelledby="nav-prewedding-tab" tabindex="0">
                                 <div class="row justify-content-center">
                                     <div class="col-3 mt-2">
                                         <img src="/img/portfolio/prewedding/IMG_3644.webp" height="150"
@@ -254,8 +254,8 @@
 
                                 </div>
                             </div>
-                            <div class="tab-pane fade text-center mt-5 w-75 mx-auto" id="nav-maternity"
-                                role="tabpanel" aria-labelledby="nav-maternity-tab" tabindex="0">
+                            <div class="tab-pane fade text-center mt-5 mx-auto" id="nav-maternity" role="tabpanel"
+                                aria-labelledby="nav-maternity-tab" tabindex="0">
                                 <div class="row justify-content-center">
                                     <div class="col-3 mt-2">
                                         <img src="/img/portfolio/Maternity/IMG_3648.webp" height="150"
@@ -294,220 +294,23 @@
                     </div>
 
                 </div>
-                {{-- <ul class="nav nav-tabs w-100 overflow gap-5 border-0 justify-content-lg-center" id="myTab"
-                    role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
-                            data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
-                            aria-selected="true">
-                            <img src="/img/ic_self_foto.png" alt="" width="60">
-                            <h6 class="color-grey">SELF FOTO</h6>
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
-                            data-bs-target="#profile-tab-pane" type="button" role="tab"
-                            aria-controls="profile-tab-pane" aria-selected="false">
-                            <img src="/img/ic_graduation.jpg" alt="" width="60">
-                            <h6 class="color-grey">GRADUATION</h6>
-
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="contact-tab" data-bs-toggle="tab"
-                            data-bs-target="#contact-tab-pane" type="button" role="tab"
-                            aria-controls="contact-tab-pane" aria-selected="false">
-                            <img src="/img/ic_family.jpg" alt="" width="60">
-                            <h6 class="color-grey">FAMILY</h6>
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="group-tab" data-bs-toggle="tab"
-                            data-bs-target="#group-tab-pane" type="button" role="tab"
-                            aria-controls="group-tab-pane" aria-selected="false">
-                            <img src="/img/ic_group.jpg" alt="" width="60">
-                            <h6 class="color-grey">GROUP</h6>
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="prewedding-tab" data-bs-toggle="tab"
-                            data-bs-target="#prewedding-tab-pane" type="button" role="tab"
-                            aria-controls="prewedding-tab-pane" aria-selected="false">
-                            <img src="/img/ic_preweddin.jpg" alt="" width="60">
-                            <h6 class="color-grey">PRE-WEDDING</h6>
-                        </button>
-                    </li>
-                </ul>
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade active show  text-center mt-5 w-75 mx-auto" id="home-tab-pane"
-                        role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-                        <div class="row justify-content-around">
-                            <div class="col-3 mt-2">
-                                <img src="/img/portfolio/self-foto/IMG_3636.webp" height="150" alt="" />
-                            </div>
-                            <div class="col-3 mt-2">
-                                <img src="/img/portfolio/self-foto/IMG_3637.webp" height="150" alt="" />
-                            </div>
-                            <div class="col-3 mt-2">
-                                <img src="/img/portfolio/self-foto/IMG_3638.webp" height="150" alt="" />
-                            </div>
-                            <div class="col-3 mt-2">
-                                <img src="/img/portfolio/self-foto/IMG_3639.webp" height="150" alt="" />
-                            </div>
-                            <div class="col-3 mt-2">
-                                <img src="/img/portfolio/self-foto/IMG_3640.webp" height="150" alt="" />
-                            </div>
-                        </div>
-
-
-
-
-
-                    </div>
-                    <div class="tab-pane fade text-center mt-5 w-75 mx-auto" id="profile-tab-pane" role="tabpanel"
-                        aria-labelledby="profile-tab" tabindex="0">
-                        <div class="row justify-content-around">
-                            <div class="col-3 mt-2">
-                                <img src="/img/portfolio/graduation/IMG_3655.webp" height="150" alt="" />
-
-                            </div>
-                            <div class="col-3 mt-2">
-                                <img src="/img/portfolio/graduation/Copy of SYN-00346.webp" height="150"
-                                    alt="" />
-                            </div>
-                            <div class="col-3 mt-2">
-                                <img src="/img/portfolio/graduation/Copy of SYN-5324.webp" height="150"
-                                    alt="" />
-                            </div>
-                            <div class="col-3 mt-2">
-                                <img src="/img/portfolio/graduation/IMG_3645.webp" height="150" alt="" />
-                            </div>
-                            <div class="col-3 mt-2">
-                                <img src="/img/portfolio/graduation/Copy of SYN-00055.webp" height="150"
-                                    alt="" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade text-center mt-5 w-75 mx-auto" id="contact-tab-pane" role="tabpanel"
-                        aria-labelledby="contact-tab" tabindex="0">
-                        <div class="row justify-content-center">
-                            <div class="col-3 mt-2">
-                                <img src="/img/portfolio/family/SYN-00445.webp" height="150" alt="" />
-
-                            </div>
-                            <div class="col-3 mt-2">
-                                <div class="row">
-                                    <div class="col-12 mt-2">
-                                        <img src="/img/portfolio/family/SYN-00381.webp" class="w-100" height="150"
-                                            alt="" />
-                                    </div>
-                                    <div class="col-12 mt-2">
-                                        <img src="/img/portfolio/family/SYN-00520.webp" height="150"
-                                            alt="" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3 mt-2">
-                                <div class="row">
-                                    <div class="col-12 mt-2">
-                                        <img src="/img/portfolio/family/SYN-00744.webp" height="150"
-                                            alt="" />
-
-                                    </div>
-                                    <div class="col-12 mt-2">
-                                        <img src="/img/portfolio/family/SYN-00783.webp" height="150"
-                                            alt="" />
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="tab-pane fade text-center mt-5 w-75 mx-auto" id="group-tab-pane" role="tabpanel"
-                        aria-labelledby="group-tab" tabindex="0">
-                        <div class="row justify-content-center">
-                            <div class="col-3 mt-2">
-                                <img src="/img/portfolio/grup/IMG_3660.webp" height="150" alt="" />
-
-                            </div>
-                            <div class="col-3 mt-2">
-                                <div class="row">
-                                    <div class="col-12 mt-2">
-                                        <img src="/img/portfolio/grup/IMG_3654.webp" height="150" alt="" />
-                                    </div>
-                                    <div class="col-12 mt-2">
-                                        <img src="/img/portfolio/grup/KRY-0073.webp" height="150" alt="" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3 mt-2">
-                                <div class="row">
-                                    <div class="col-12 mt-2">
-                                        <img src="/img/portfolio/grup/KRY-0076.webp" height="150" alt="" />
-
-                                    </div>
-                                    <div class="col-12 mt-2">
-                                        <img src="/img/portfolio/grup/KRY-0077.webp" height="150" alt="" />
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="tab-pane fade text-center mt-5 w-75 mx-auto" id="prewedding-tab-pane" role="tabpanel"
-                        aria-labelledby="prewedding-tab" tabindex="0">
-                        <div class="row justify-content-center">
-                            <div class="col-3 mt-2">
-                                <img src="/img/portfolio/prewedding/IMG_3644.webp" height="150" alt="" />
-
-                            </div>
-                            <div class="col-3 mt-2">
-                                <div class="row">
-                                    <div class="col-12 mt-2">
-                                        <img src="/img/portfolio/prewedding/IMG_3651.webp" height="150"
-                                            alt="" />
-                                    </div>
-                                    <div class="col-12 mt-2">
-                                        <img src="/img/portfolio/prewedding/IMG_3652.webp" height="150"
-                                            alt="" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3 mt-2">
-                                <div class="row">
-                                    <div class="col-12 mt-2">
-                                        <img src="/img/portfolio/prewedding/IMG_3657.webp" height="150"
-                                            alt="" />
-
-                                    </div>
-                                    <div class="col-12 mt-2">
-                                        <img src="/img/portfolio/prewedding/KRY-1663.webp" height="150"
-                                            alt="" />
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div> --}}
-
             </div>
 
             <div class="col-12 text-center mt-5">
-                <a href="" class="text-decoration-none text-dark py-2 rounded px-5"
+                <a href="{{ route('product') }}" class="text-decoration-none text-dark py-2 rounded px-5"
                     style="border: 1px solid grey">Lets
                     Choose Your
                     Package</a>
             </div>
         </div>
 
-        <div class="row justify-content-center" style="margin-top: 100px">
+        <div class="row justify-content-center mb-5" style="margin-top: 100px">
             <div class="col-12">
                 <h2 class="text-center color-grey font-bold">DON'T MISS OUR BEST PRODUCT</h2>
             </div>
             @foreach ($packages as $package)
                 <div class="col-6 col-lg-4 mt-5">
-                    <a href="{{ route('product.show', $package->id) }}">
+                    <a href="{{ route('product.show', $package->id) }}" class="text-decoration-none">
                         <div class="card">
                             @if ($package->galleries->count())
                                 <div class="card-img border"
