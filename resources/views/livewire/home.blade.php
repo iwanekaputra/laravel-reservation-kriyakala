@@ -18,13 +18,13 @@
 
                                     <div class="col-4 col-lg-2 comment-container mr-1">
                                         <div class="child mt-2">
-                                            <button class="nav-link active " id="nav-home-tab" data-bs-toggle="tab"
+                                            <button class="nav-link" id="nav-home-tab" data-bs-toggle="tab"
                                                 data-bs-target="#nav-home" type="button" role="tab"
-                                                aria-controls="nav-home" aria-selected="true">
-                                                <img src="/img/ic_self_foto.png" alt="" width="20">
-                                                <h6 class="color-grey">SELF FOTO</h6>
+                                                aria-controls="nav-home" aria-selected="false">
+                                                <img class="img-self-foto" src="/img/ic_self_foto.png" alt=""
+                                                    width="60">
+                                                <h6 class="color-grey title-tabs">SELF FOTO</h6>
                                             </button>
-                                            </a>
                                         </div>
                                     </div>
                                     <div class="col-4 col-lg-2 comment-container mr-1  px-2 py-2">
@@ -33,7 +33,7 @@
                                                 data-bs-target="#nav-profile" type="button" role="tab"
                                                 aria-controls="nav-profile" aria-selected="false">
                                                 <img src="/img/ic_graduation.jpg" alt="" width="60">
-                                                <h6 class="color-grey">GRADUATION</h6>
+                                                <h6 class="color-grey title-tabs">GRADUATION</h6>
                                             </button>
                                         </div>
                                     </div>
@@ -43,7 +43,7 @@
                                                 data-bs-target="#nav-contact" type="button" role="tab"
                                                 aria-controls="nav-contact" aria-selected="false">
                                                 <img src="/img/ic_family.jpg" alt="" width="60">
-                                                <h6 class="color-grey">FAMILY</h6>
+                                                <h6 class="color-grey title-tabs">FAMILY</h6>
                                             </button>
 
                                         </div>
@@ -55,7 +55,7 @@
                                                 data-bs-target="#nav-group" type="button" role="tab"
                                                 aria-controls="nav-group" aria-selected="false">
                                                 <img src="/img/ic_group.jpg" alt="">
-                                                <h6 class="color-grey">GROUP</h6>
+                                                <h6 class="color-grey title-tabs">GROUP</h6>
                                             </button>
 
                                         </div>
@@ -66,7 +66,7 @@
                                                 data-bs-target="#nav-prewedding" type="button" role="tab"
                                                 aria-controls="nav-prewedding" aria-selected="false">
                                                 <img src="/img/ic_preweddin.jpg" alt="" width="60">
-                                                <h6 class="color-grey">PRE-WEDDING</h6>
+                                                <h6 class="color-grey title-tabs">PRE-WEDDING</h6>
                                                 </h6>
                                             </button>
                                         </div>
@@ -76,8 +76,15 @@
                                             <button class="nav-link" id="nav-maternity-tab" data-bs-toggle="tab"
                                                 data-bs-target="#nav-maternity" type="button" role="tab"
                                                 aria-controls="nav-maternity" aria-selected="false">
-                                                <img src="/img/ic_maternity.png" alt="" class="w-75 mt-3">
-                                                <h6 class="color-grey" style="margin-top : 30px">MATERNITY</h6>
+                                                <div style="height: 15px"></div>
+
+                                                <div class="img-maternity"
+                                                    style="background-image : url('/img/ic_maternity.png')">
+                                                </div>
+                                                <div style="height: 15px"></div>
+
+                                                <h6 class="color-grey title-tabs">MATERNITY
+                                                </h6>
                                                 </h6>
                                             </button>
                                         </div>

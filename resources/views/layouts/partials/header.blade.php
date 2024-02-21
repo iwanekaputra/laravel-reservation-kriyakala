@@ -60,6 +60,36 @@
         })(window, document, 'script', 'dataLayer', 'GTM-5BFF49HX');
     </script>
     <!-- End Google Tag Manager -->
+
+    <style>
+        .title-tabs {
+            font-size: 14px
+        }
+
+        .img-maternity {
+            width: 140px;
+            height: 128px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+
+        @media only screen and (max-width: 767px) {
+            .img-self-foto {
+                width: 100px;
+                height: 100px;
+            }
+
+            .img-maternity {
+                width: 100px;
+                height: 70px;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+        }
+    </style>
 </head>
 
 <body>
