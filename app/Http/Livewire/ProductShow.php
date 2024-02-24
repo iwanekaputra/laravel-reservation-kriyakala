@@ -92,9 +92,9 @@ class ProductShow extends Component
             $this->package->discount_weekday ? $discountPackage = $this->package->discount_weekday : null;
             $pricePackage = $this->package->discount_weekday != 0 ? (int) $this->package->price_weekday - (int) $this->package->price_weekday * $this->package->discount_weekday/100 : $this->package->price_weekday;
             foreach($this->selectedServiceAdditional as $id => $value) {
-                $getDataAdditional = ServiceAdditional::find($id);
-                $serviceAdditional[$value] = $getDataAdditional->discount_weekday != 0 ? (int) $getDataAdditional->price_weekday - ((int) $getDataAdditional->price_weekday * $getDataAdditional->discount_weekday/100) : $getDataAdditional->price_weekday;
-                if($value != 'FREE' || $value != '0') {
+                $getDataAdditional = ServiceAdditional::find($value);
+                $serviceAdditional[$getDataAdditional->name] = $getDataAdditional->discount_weekday != 0 ? (int) $getDataAdditional->price_weekday - ((int) $getDataAdditional->price_weekday * $getDataAdditional->discount_weekday/100) : $getDataAdditional->price_weekday;
+                if($getDataAdditional->name != 'FREE' || $getDataAdditional->name != '0') {
                     $priceAdditional += $getDataAdditional->discount_weekday != 0 ? (int) $getDataAdditional->price_weekday - ((int)$getDataAdditional->price_weekday * $getDataAdditional->discount_weekday/100) : (int) $getDataAdditional->price_weekday;
                 }
             }
@@ -104,9 +104,9 @@ class ProductShow extends Component
 
             $pricePackage = $this->package->discount_weekend != 0 ? (int) $this->package->price_weekend - (int) $this->package->price_weekend * $this->package->discount_weekend/100 : $this->package->price_weekend;
             foreach($this->selectedServiceAdditional as $id => $value) {
-                $getDataAdditional = ServiceAdditional::find($id);
-                $serviceAdditional[$value] = $getDataAdditional->discount_weekend != 0 ? (int) $getDataAdditional->price_weekend - ((int) $getDataAdditional->price_weekend * $getDataAdditional->discount_weekend/100) : $getDataAdditional->price_weekend;
-                if($value != 'FREE' || $value != '0') {
+                $getDataAdditional = ServiceAdditional::find($value);
+                $serviceAdditional[$getDataAdditional->name] = $getDataAdditional->discount_weekend != 0 ? (int) $getDataAdditional->price_weekend - ((int) $getDataAdditional->price_weekend * $getDataAdditional->discount_weekend/100) : $getDataAdditional->price_weekend;
+                if($getDataAdditional->name != 'FREE' || $getDataAdditional->name != '0') {
                     $priceAdditional += $getDataAdditional->discount_weekend != 0 ? (int) $getDataAdditional->price_weekend - ((int)$getDataAdditional->price_weekend * $getDataAdditional->discount_weekend/100) : (int) $getDataAdditional->price_weekend;
                 }
             }

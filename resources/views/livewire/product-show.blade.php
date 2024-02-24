@@ -76,8 +76,8 @@
                                 border-danger
                             @enderror"
                                                         type="checkbox" id="{{ $serviceAdditional->name }}"
-                                                        wire:model="selectedServiceAdditional.{{ $serviceAdditional->id }}"
-                                                        value="{{ $serviceAdditional->name }}">
+                                                        wire:model="selectedServiceAdditional"
+                                                        value="{{ $serviceAdditional->id }}">
                                                     <label class="form-check-label color-grey"
                                                         for="{{ $serviceAdditional->name }}">
                                                         {{ $serviceAdditional->name }}
