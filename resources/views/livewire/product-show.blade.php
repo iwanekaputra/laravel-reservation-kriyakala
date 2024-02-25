@@ -12,8 +12,13 @@
             <div class="col-12 col-lg-6 mt-3">
                 <h3>{{ $package->name }}</h3>
                 <div>
-                    <p>Price<span class="d-block">Rp.
-                            {{ number_format((int) $package->price_weekday, 0, ',', '.') }}</span></p>
+                    <p>Price
+                        <span class="d-block">Rp.
+                            {{ number_format($package->price_weekday, 0, ',', '.') }} (Weekday)</span>
+                        <span class="d-block">Rp.
+                            {{ number_format($package->price_weekend, 0, ',', '.') }} (Weekend)</span>
+
+                    </p>
 
                 </div>
 
@@ -243,7 +248,11 @@
                             <div class="card-body text-center p-2">
                                 <h5 class="">{{ $relatedProduct->name }}</h5>
                                 <p class="card-text">Rp.
-                                    {{ number_format((int) $relatedProduct->price_weekday, 0, ',', '.') }}
+                                    {{ number_format($relatedProduct->price_weekday, 0, ',', '.') }} (Weekday)
+                                    <span class="d-block">Rp.
+                                        {{ number_format((int) $relatedProduct->price_weekend, 0, ',', '.') }}
+                                        (Weekend)
+                                    </span>
                                 </p>
                             </div>
                         </div>

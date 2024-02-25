@@ -35,7 +35,11 @@
                                     <div class="card-body text-center p-2">
                                         <h5 class="">{{ $package->name }}</h5>
                                         <p class="card-text">Rp.
-                                            {{ number_format((int) $package->price_weekday, 0, ',', '.') }}
+                                            {{ number_format($package->price_weekday, 0, ',', '.') }} (Weekday)
+                                            <span class="d-block">Rp.
+                                                {{ number_format($package->price_weekend, 0, ',', '.') }}
+                                                (Weekend)
+                                            </span>
                                         </p>
                                     </div>
                                 </div>

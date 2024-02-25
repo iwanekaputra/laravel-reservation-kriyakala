@@ -18,7 +18,7 @@
 
                                     <div class="col-4 col-lg-2 comment-container mr-1">
                                         <div class="child mt-2">
-                                            <button class="nav-link" id="nav-home-tab" data-bs-toggle="tab"
+                                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
                                                 data-bs-target="#nav-home" type="button" role="tab"
                                                 aria-controls="nav-home" aria-selected="false">
                                                 <img class="img-self-foto" src="/img/ic_self_foto.png" alt=""
