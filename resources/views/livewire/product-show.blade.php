@@ -66,36 +66,74 @@
 
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="d-block color-salmon">Additional</label>
-                                    @error('selectedServiceAdditional')
-                                        <div class="text-danger">
-                                            {{ $message }}</div>
-                                    @enderror
-                                    <div class="row">
-                                        @foreach ($serviceAdditionals as $serviceAdditional)
-                                            <div class="col-6">
-                                                <div class="form-check">
-                                                    <input
-                                                        class="form-check-input @error('selectedServiceAdditional')
-                                border-danger
-                            @enderror"
-                                                        type="checkbox" id="{{ $serviceAdditional->name }}"
-                                                        wire:model="selectedServiceAdditional"
-                                                        value="{{ $serviceAdditional->id }}">
-                                                    <label class="form-check-label color-grey"
-                                                        for="{{ $serviceAdditional->name }}">
-                                                        {{ $serviceAdditional->name }}
-                                                    </label>
+                                @if ($serviceAdditionals->count())
+                                    <div class="form-group">
+                                        <label class="d-block color-salmon">Additional</label>
+                                        @error('selectedServiceAdditional')
+                                            <div class="text-danger">
+                                                {{ $message }}</div>
+                                        @enderror
+                                        <div class="row">
+                                            @foreach ($serviceAdditionals as $serviceAdditional)
+                                                <div class="col-6">
+                                                    <div class="form-check">
+                                                        <input
+                                                            class="form-check-input @error('selectedServiceAdditional')
+                                                border-danger
+                                            @enderror"
+                                                            type="checkbox" id="{{ $serviceAdditional->name }}"
+                                                            wire:model="selectedServiceAdditional"
+                                                            value="{{ $serviceAdditional->id }}">
+                                                        <label class="form-check-label color-grey"
+                                                            for="{{ $serviceAdditional->name }}">
+                                                            {{ $serviceAdditional->name }}
+                                                        </label>
+                                                    </div>
                                                 </div>
+                                            @endforeach
+                                        </div>
+
+                                        @if ($backgroundColors->count())
+                                            <div class="form-group mt-3">
+                                                <label class="d-block color-salmon">Main Background</label>
+                                                @error('mainBackground')
+                                                    <div class="text-danger">
+                                                        {{ $message }}</div>
+                                                @enderror
+                                                <div class="row">
+                                                    @foreach ($backgroundColors as $backgroundColor)
+                                                        <div class="col-6">
+                                                            <div class="form-check">
+                                                                <input
+                                                                    class="form-check-input @error('mainBackground')
+                                                border-danger
+                                            @enderror"
+                                                                    type="radio" name="{{ $backgroundColor->name }}"
+                                                                    id="{{ $backgroundColor->name }}"
+                                                                    value="{{ $backgroundColor->name }}"
+                                                                    wire:model="mainBackground">
+                                                                <label class="form-check-label color-grey"
+                                                                    for="{{ $backgroundColor->name }}">
+                                                                    {{ $backgroundColor->name }}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+
                                             </div>
-                                        @endforeach
+                                        @endif
+
+
+
                                     </div>
+                                @endif
 
 
-                                    <div class="form-group mt-3">
-                                        <label class="d-block color-salmon">Main Background</label>
-                                        @error('mainBackground')
+                                @if ($backgroundColors->count())
+                                    <div class="form-group">
+                                        <label class="d-block color-salmon">Additional Background</label>
+                                        @error('additionalBackground')
                                             <div class="text-danger">
                                                 {{ $message }}</div>
                                         @enderror
@@ -104,65 +142,35 @@
                                                 <div class="col-6">
                                                     <div class="form-check">
                                                         <input
-                                                            class="form-check-input @error('mainBackground')
-                                border-danger
-                            @enderror"
-                                                            type="radio" name="{{ $backgroundColor->name }}"
-                                                            id="{{ $backgroundColor->name }}"
+                                                            class="form-check-input @error('additionalBackground')
+                                        border-danger
+                                    @enderror"
+                                                            type="radio"
+                                                            name="{{ $backgroundColor->name }}-additional"
+                                                            id="{{ $backgroundColor->name }}-additional"
                                                             value="{{ $backgroundColor->name }}"
-                                                            wire:model="mainBackground">
+                                                            wire:model="additionalBackground">
                                                         <label class="form-check-label color-grey"
-                                                            for="{{ $backgroundColor->name }}">
+                                                            for="{{ $backgroundColor->name }}-additional">
                                                             {{ $backgroundColor->name }}
                                                         </label>
                                                     </div>
                                                 </div>
                                             @endforeach
-                                        </div>
-
-                                    </div>
-
-
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="d-block color-salmon">Additional Background</label>
-                                    @error('additionalBackground')
-                                        <div class="text-danger">
-                                            {{ $message }}</div>
-                                    @enderror
-                                    <div class="row">
-                                        @foreach ($backgroundColors as $backgroundColor)
                                             <div class="col-6">
                                                 <div class="form-check">
-                                                    <input
-                                                        class="form-check-input @error('additionalBackground')
-                                        border-danger
-                                    @enderror"
-                                                        type="radio" name="{{ $backgroundColor->name }}-additional"
-                                                        id="{{ $backgroundColor->name }}-additional"
-                                                        value="{{ $backgroundColor->name }}"
-                                                        wire:model="additionalBackground">
-                                                    <label class="form-check-label color-grey"
-                                                        for="{{ $backgroundColor->name }}-additional">
-                                                        {{ $backgroundColor->name }}
+                                                    <input class="form-check-input" type="radio"
+                                                        name="Tidak Perlu-additional" id="Tidak Perlu-additional"
+                                                        value="0" wire:model="additionalBackground">
+                                                    <label class="form-check-label" for="Tidak Perlu-additional">
+                                                        Tidak Perlu
                                                     </label>
                                                 </div>
                                             </div>
-                                        @endforeach
-                                        <div class="col-6">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="Tidak Perlu-additional" id="Tidak Perlu-additional"
-                                                    value="0" wire:model="additionalBackground">
-                                                <label class="form-check-label" for="Tidak Perlu-additional">
-                                                    Tidak Perlu
-                                                </label>
-                                            </div>
                                         </div>
-                                    </div>
 
-                                </div>
+                                    </div>
+                                @endif
 
                                 <div class="form-group">
                                     <label class="color-salmon">Appointment</label>
