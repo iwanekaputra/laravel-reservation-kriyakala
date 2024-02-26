@@ -33,9 +33,11 @@ class BookingIndex extends Component
     }
 
     public function delete() {
-        $booking = Booking::find($this->bookingId);
+        $booking = Booking::where('order_id', $this->bookingId)->get();
 
-        $booking->delete();
+        foreach($booking as $bo) {
+            $bo->delete();
+        }
 
         return redirect()->route('admin.booking.index');
     }

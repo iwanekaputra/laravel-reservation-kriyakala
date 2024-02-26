@@ -42,7 +42,9 @@
                     <div>
                         <p>Additional Package
                             @foreach ($invoice->additional as $key => $value)
-                                <span class="d-block font-bold" style="font-size: 16px">{{ $key }}</span>
+                                <span class="d-block font-bold" style="font-size: 16px">
+                                    {{ $value[1] }} x {{ $key }}
+                                </span>
                             @endforeach
                         </p>
                     </div>
@@ -57,7 +59,8 @@
                 <div class="d-flex align-items-center" style="gap: 10px">
                     <i class="bi bi-alarm color-salmon" style="font-size: 30px"></i>
                     <div>
-                        <p>Time <span class="d-block font-bold" style="font-size: 16px">{{ $invoice->time }}</span>
+                        <p>Time <span class="d-block font-bold" style="font-size: 16px">{{ $invoice->time }} -
+                                {{ $invoice->out_time }}</span>
                         </p>
                     </div>
                 </div>
@@ -178,7 +181,7 @@
                     </tr>
                     @foreach ($invoice->additional as $key => $value)
                         <tr>
-                            <th>{{ $key }}</th>
+                            <th>{{ $value[1] }} x {{ $key }}</th>
 
                             @php
                                 $additional = DB::table('service_additionals')->where('name', $key)->first();
@@ -198,17 +201,17 @@
                                 }
                             @endphp
 
-                            @if ($value == 'FREE')
-                                <th class="" style="text-align: end">{{ $value }}</th>
+                            @if ($value[0] == 'FREE')
+                                <th class="" style="text-align: end">{{ $value[0] }}</th>
                             @else
                                 @if ($promo)
                                     <th class="" style="text-align: end"><span
                                             style="text-decoration: line-through">Rp.
                                             {{ number_format((int) $promo, 0, ',', '.') }}</span> Rp.
-                                        {{ number_format((int) $value, 0, ',', '.') }}</th>
+                                        {{ number_format((int) $value[0], 0, ',', '.') }}</th>
                                 @else
                                     <th class="" style="text-align: end">Rp.
-                                        {{ number_format((int) $value, 0, ',', '.') }}</th>
+                                        {{ number_format((int) $value[0], 0, ',', '.') }}</th>
                                 @endif
                             @endif
                         </tr>

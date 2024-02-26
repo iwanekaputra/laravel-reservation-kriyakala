@@ -16,6 +16,7 @@ class ServiceAdditionalEdit extends Component
     public $discountWeekday;
     public $discountWeekend;
     public $additional;
+    public $typeInput;
 
     public $listeners = [
         'moveToIndex'
@@ -27,7 +28,8 @@ class ServiceAdditionalEdit extends Component
         'priceWeekday' => 'required',
         'priceWeekend' => 'required',
         'discountWeekday' => 'required|max:3',
-        'discountWeekend' => 'required|max:3'
+        'discountWeekend' => 'required|max:3',
+        'typeInput' => 'required'
     ];
 
     public function mount($id) {
@@ -39,6 +41,7 @@ class ServiceAdditionalEdit extends Component
         $this->priceWeekend = $this->additional->price_weekend;
         $this->discountWeekday = $this->additional->discount_weekday;
         $this->discountWeekend = $this->additional->discount_weekend;
+        $this->typeInput = $this->additional->type_input;
     }
 
     public function update() {
@@ -50,7 +53,8 @@ class ServiceAdditionalEdit extends Component
             'price_weekday' => $this->priceWeekday,
             'price_weekend' => $this->priceWeekend,
             'discount_weekday' => $this->discountWeekday,
-            'discount_weekend' => $this->discountWeekend
+            'discount_weekend' => $this->discountWeekend,
+            'type_input' => $this->typeInput
         ]);
 
         if($serviceAdditional) {

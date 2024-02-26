@@ -68,30 +68,29 @@
 
                                 @if ($serviceAdditionals->count())
                                     <div class="form-group">
-                                        <label class="d-block color-salmon">Additional</label>
-                                        @error('selectedServiceAdditional')
-                                            <div class="text-danger">
-                                                {{ $message }}</div>
-                                        @enderror
-                                        <div class="row">
-                                            @foreach ($serviceAdditionals as $serviceAdditional)
-                                                <div class="col-6">
-                                                    <div class="form-check">
-                                                        <input
-                                                            class="form-check-input @error('selectedServiceAdditional')
-                                                border-danger
-                                            @enderror"
-                                                            type="checkbox" id="{{ $serviceAdditional->name }}"
-                                                            wire:model="selectedServiceAdditional"
-                                                            value="{{ $serviceAdditional->id }}">
-                                                        <label class="form-check-label color-grey"
-                                                            for="{{ $serviceAdditional->name }}">
-                                                            {{ $serviceAdditional->name }}
-                                                        </label>
-                                                    </div>
+                                        @foreach ($serviceAdditionals as $serviceAdditional)
+                                            @if ($serviceAdditional->type_input == 'number')
+                                                <div class="did-floating-label-content">
+
+
+                                                    <input class="did-floating-input" type="number" placeholder=""
+                                                        wire:model="selectedServiceAdditional.{{ $serviceAdditional->name }}">
+                                                    <label
+                                                        class="did-floating-label">{{ $serviceAdditional->name }}</label>
+
                                                 </div>
-                                            @endforeach
-                                        </div>
+                                            @elseif ($serviceAdditional->type_input == 'checkbox')
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        wire:model="selectedServiceAdditional.{{ $serviceAdditional->name }}">
+                                                    <label class="form-check-label color-grey"
+                                                        for="{{ $serviceAdditional->name }}">
+                                                        {{ $serviceAdditional->name }}
+                                                    </label>
+                                                </div>
+                                            @endif
+                                        @endforeach
+
 
                                         @if ($backgroundColors->count())
                                             <div class="form-group mt-3">
@@ -130,7 +129,7 @@
                                 @endif
 
 
-                                {{-- @if ($backgroundColors->count())
+                                @if ($backgroundColors->count())
                                     <div class="form-group">
                                         <label class="d-block color-salmon">Additional Background</label>
                                         @error('additionalBackground')
@@ -170,7 +169,7 @@
                                         </div>
 
                                     </div>
-                                @endif --}}
+                                @endif
 
                                 <div class="form-group">
                                     <label class="color-salmon">Appointment</label>
@@ -201,7 +200,8 @@
                                                             <input type="radio" name="{{ $time->hour }}"
                                                                 value="{{ $time->hour }}" class="selectgroup-input"
                                                                 wire:model="time">
-                                                            <span class="selectgroup-button">{{ $time->hour }}</span>
+                                                            <span
+                                                                class="selectgroup-button">{{ $time->hour }}</span>
                                                         </label>
                                                     </div>
                                                 @endforeach

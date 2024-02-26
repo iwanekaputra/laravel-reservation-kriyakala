@@ -15,4 +15,18 @@ class Time extends Model
     public function service() {
         return $this->belongsTo(Service::class);
     }
+
+
+
+// in your model file
+public function next(){
+    // get next user
+    return Time::where('id', '>', $this->id)->first();
+
+}
+public  function previous(){
+    // get previous  user
+    return Time::where('id', '<', $this->id)->orderBy('id','desc')->first();
+
+}
 }
