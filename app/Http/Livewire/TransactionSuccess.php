@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Booking;
+use App\Models\Service;
 use GuzzleHttp\Psr7\Request;
 use Livewire\Component;
 
@@ -12,13 +13,14 @@ class TransactionSuccess extends Component
     public function mount() {
         if($_GET['status_code'] == 200) {
             $booking = Booking::where("order_id", $_GET['order_id'])->first();
-            if($booking->service != 'Self Photo Studio Monochrome') {
+            $service = Service::where('name', $booking->service)->first();
+            if($service->status_payment == 'Full Payment') {
                 $booking->update([
-                    'status_payment' => 'DP 50%'
+                    'status_payment' => 'Lunas'
                 ]);
             } else {
                 $booking->update([
-                    'status_payment' => 'Lunas'
+                    'status_payment' => 'DP 50%'
                 ]);
             }
 
