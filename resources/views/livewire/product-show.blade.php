@@ -129,7 +129,7 @@
                                 @endif
 
 
-                                @if ($backgroundColors->count())
+                                {{-- @if ($backgroundColors->count())
                                     <div class="form-group">
                                         <label class="d-block color-salmon">Additional Background</label>
                                         @error('additionalBackground')
@@ -169,7 +169,7 @@
                                         </div>
 
                                     </div>
-                                @endif
+                                @endif --}}
 
                                 <div class="form-group">
                                     <label class="color-salmon">Appointment</label>
@@ -200,8 +200,7 @@
                                                             <input type="radio" name="{{ $time->hour }}"
                                                                 value="{{ $time->hour }}" class="selectgroup-input"
                                                                 wire:model="time">
-                                                            <span
-                                                                class="selectgroup-button">{{ $time->hour }}</span>
+                                                            <span class="selectgroup-button">{{ $time->hour }}</span>
                                                         </label>
                                                     </div>
                                                 @endforeach
