@@ -70,15 +70,28 @@
                                     <div class="form-group">
                                         @foreach ($serviceAdditionals as $serviceAdditional)
                                             @if ($serviceAdditional->type_input == 'number')
-                                                <div class="did-floating-label-content">
+                                                @if (strtolower($serviceAdditional->name) == 'sesi foto 5 menit')
+                                                    <div class="did-floating-label-content">
 
 
-                                                    <input class="did-floating-input" type="number" placeholder=""
-                                                        wire:model="selectedServiceAdditional.{{ $serviceAdditional->name }}">
-                                                    <label
-                                                        class="did-floating-label">{{ $serviceAdditional->name }}</label>
+                                                        <input class="did-floating-input" type="number" placeholder=""
+                                                            wire:model="selectedServiceAdditional.{{ $serviceAdditional->name }}">
+                                                        <label
+                                                            class="did-floating-label">{{ $serviceAdditional->name }}</label>
+                                                        <div class="text-danger">Note : Isi 1 = 5 Menit</div>
 
-                                                </div>
+                                                    </div>
+                                                @else
+                                                    <div class="did-floating-label-content">
+
+
+                                                        <input class="did-floating-input" type="number" placeholder=""
+                                                            wire:model="selectedServiceAdditional.{{ $serviceAdditional->name }}">
+                                                        <label
+                                                            class="did-floating-label">{{ $serviceAdditional->name }}</label>
+
+                                                    </div>
+                                                @endif
                                             @elseif ($serviceAdditional->type_input == 'checkbox')
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox"
