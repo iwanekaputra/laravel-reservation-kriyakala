@@ -14,11 +14,11 @@ use Livewire\Component;
 class ProductShow extends Component
 {
 
-    public $name, $email, $nowa, $mainBackground, $additionalBackground = 0,$appointment,$time;
+    public $name, $email, $nowa, $mainBackground, $additionalBackground = 0, $appointment, $time;
 
     public $isShowForm = false;
 
-    public $selectedServiceAdditional = [];
+    public $selectedServiceAdditional;
 
     public $package;
     public $serviceAdditionals = [];
@@ -37,19 +37,26 @@ class ProductShow extends Component
         'time' => 'required'
     ];
 
-    public function mount($id) {
+    public function mount($id)
+    {
+
         $this->package = ServicePackage::find($id);
         $this->service = $this->package->service->name;
         $this->studio = $this->package->service->studio->name;
-        $this->serviceAdditionals = ServiceAdditional::whereHas('service', function($query) {
-            $query->where('name', $this->service);
-        })->orderBy('type_input', 'DESC')->get();
-        $this->backgroundColors = BackgroundColor::whereHas('service', function($query) {
+        $this->serviceAdditionals = ServiceAdditional::where('service_package_id', $this->package->id)->orderBy('type_input', 'DESC')->get();
+
+        $this->selectedServiceAdditional = [];
+        foreach ($this->serviceAdditionals as $serviceAdditional) {
+            $this->selectedServiceAdditional[$serviceAdditional->name] = $serviceAdditional->default_value == 'false' ? false : $serviceAdditional->default_value;
+        }
+
+        $this->backgroundColors = BackgroundColor::whereHas('service', function ($query) {
             $query->where('name', $this->service);
         })->get();
     }
 
-    public function showForm() {
+    public function showForm()
+    {
         $this->isShowForm = true;
     }
 
@@ -57,32 +64,33 @@ class ProductShow extends Component
 
 
 
-    public function updatedAppointment() {
+    public function updatedAppointment()
+    {
         $selectDate = Carbon::parse(strtotime($this->appointment));
 
         $getBooking = Booking::where('in_date', $this->appointment)->where('studio', $this->studio);
 
-        if($selectDate->isWeekday()) {
-            $this->times = Time::whereHas('service', function($query) {
+        if ($selectDate->isWeekday()) {
+            $this->times = Time::whereHas('service', function ($query) {
                 $query->where('name', $this->service);
-                $query->whereHas('studio', function($query) {
+                $query->whereHas('studio', function ($query) {
                     $query->where("name", $this->studio);
                 });
             })->where('type', 'weekday')->whereNotIn('hour', $getBooking->pluck('time'))->get();
         }
 
-        if($selectDate->isWeekend()) {
-            $this->times = Time::whereHas('service', function($query) {
+        if ($selectDate->isWeekend()) {
+            $this->times = Time::whereHas('service', function ($query) {
                 $query->where('name', $this->service);
-                $query->whereHas('studio', function($query) {
+                $query->whereHas('studio', function ($query) {
                     $query->where("name", $this->studio);
                 });
             })->where('type', 'weekend')->whereNotIn('hour', $getBooking->pluck('time'))->get();
         }
-
     }
 
-    public function save() {
+    public function save()
+    {
         // $this->validate();
         $selectDate = Carbon::parse(strtotime($this->appointment));
 
@@ -99,91 +107,91 @@ class ProductShow extends Component
 
         $week = '';
 
-        if($selectDate->isWeekday()) {
+        if ($selectDate->isWeekday()) {
             $week = 'weekday';
             $this->package->discount_weekday ? $discountPackage = $this->package->discount_weekday : null;
-            $pricePackage = $this->package->discount_weekday != 0 ? (int) $this->package->price_weekday - (int) $this->package->price_weekday * $this->package->discount_weekday/100 : $this->package->price_weekday;
-            foreach($this->selectedServiceAdditional as $name => $value) {
-                if(empty($value)) {
+            $pricePackage = $this->package->discount_weekday != 0 ? (int) $this->package->price_weekday - (int) $this->package->price_weekday * $this->package->discount_weekday / 100 : $this->package->price_weekday;
+            foreach ($this->selectedServiceAdditional as $name => $value) {
+                if (empty($value)) {
                     continue;
                 }
 
 
-                $getDataAdditional = ServiceAdditional::where('name', $name)->first();
+                $getDataAdditional = ServiceAdditional::where('name', $name)->where('service_package_id', $this->package->id)->first();
 
-                if(is_bool($value) && $value == true) {
-                    $serviceAdditional[$getDataAdditional->name] = [$getDataAdditional->discount_weekday != 0 ? ((int) $getDataAdditional->price_weekday - ((int) $getDataAdditional->price_weekday * $getDataAdditional->discount_weekday/100)) : (int)$getDataAdditional->price_weekday, '1'];
+                if (is_bool($value) && $value == true) {
+                    $serviceAdditional[$getDataAdditional->name] = [$getDataAdditional->discount_weekday != 0 ? ((int) $getDataAdditional->price_weekday - ((int) $getDataAdditional->price_weekday * $getDataAdditional->discount_weekday / 100)) : (int)$getDataAdditional->price_weekday, '1'];
 
-                if($getDataAdditional->name != 'FREE' || $getDataAdditional->name != '0') {
-                    $priceAdditional += $getDataAdditional->discount_weekday != 0 ? ((int) $getDataAdditional->price_weekday - ((int) $getDataAdditional->price_weekday * $getDataAdditional->discount_weekday/100)) : (int)$getDataAdditional->price_weekday;
-                }
-                } else if(is_bool($value) && $value == false) {
+                    if ($getDataAdditional->name != 'FREE' || $getDataAdditional->name != '0') {
+                        $priceAdditional += $getDataAdditional->discount_weekday != 0 ? ((int) $getDataAdditional->price_weekday - ((int) $getDataAdditional->price_weekday * $getDataAdditional->discount_weekday / 100)) : (int)$getDataAdditional->price_weekday;
+                    }
+                } else if (is_bool($value) && $value == false) {
                     continue;
                 } else {
 
-                    if(strtolower($getDataAdditional->name) == 'sesi foto 5 menit') {
+                    // additional package sesi 5 menit
+                    if (strtolower($getDataAdditional->name) == 'sesi foto 5 menit') {
                         $addMinute = (5 * (int)$value) + $perMinute;
                         $sesi = $value;
-                       $outTime =  Carbon::parse('2018-06-15 ' . $this->time)->addMinute($addMinute)->format('H:i');
+                        $outTime =  Carbon::parse('2018-06-15 ' . $this->time)->addMinute($addMinute)->format('H:i');
                     }
-                    $serviceAdditional[$getDataAdditional->name] = [$getDataAdditional->discount_weekday != 0 ? ((int) $getDataAdditional->price_weekday - ((int) $getDataAdditional->price_weekday * $getDataAdditional->discount_weekday/100)) * (int)$value : (int)$getDataAdditional->price_weekday * (int)$value, $value];
-                if($getDataAdditional->name != 'FREE' || $getDataAdditional->name != '0') {
-                    $priceAdditional += $getDataAdditional->discount_weekday != 0 ? ((int) $getDataAdditional->price_weekday - ((int) $getDataAdditional->price_weekday * $getDataAdditional->discount_weekday/100)) * (int)$value : (int)$getDataAdditional->price_weekday * (int)$value;
+                    if ((int)$value - (int)$getDataAdditional->default_value != 0) {
+                        $serviceAdditional[$getDataAdditional->name] = [$getDataAdditional->discount_weekday != 0 ? ((int) $getDataAdditional->price_weekday - ((int) $getDataAdditional->price_weekday * $getDataAdditional->discount_weekday / 100)) * ((int)$value - (int)$getDataAdditional->default_value) : (int)$getDataAdditional->price_weekday * ((int)$value - (int)$getDataAdditional->default_value), (int)$value - (int)$getDataAdditional->default_value];
+                        if ($getDataAdditional->name != 'FREE' || $getDataAdditional->name != '0') {
+                            $priceAdditional += $getDataAdditional->discount_weekday != 0 ? ((int) $getDataAdditional->price_weekday - ((int) $getDataAdditional->price_weekday * $getDataAdditional->discount_weekday / 100)) * ((int)$value - (int)$getDataAdditional->default_value) : (int)$getDataAdditional->price_weekday * ((int)$value - (int)$getDataAdditional->default_value);
+                        }
+                    }
                 }
-                }
-
-
             }
-
-        } else if($selectDate->isWeekend()) {
+        } else if ($selectDate->isWeekend()) {
             $week = 'weekend';
 
             $this->package->discount_weekend ? $discountPackage = $this->package->discount_weekend : null;
 
-            $pricePackage = $this->package->discount_weekend != 0 ? (int) $this->package->price_weekend - (int) $this->package->price_weekend * $this->package->discount_weekend/100 : $this->package->price_weekend;
-            foreach($this->selectedServiceAdditional as $name => $value) {
-                if(empty($value)) {
+            $pricePackage = $this->package->discount_weekend != 0 ? (int) $this->package->price_weekend - (int) $this->package->price_weekend * $this->package->discount_weekend / 100 : $this->package->price_weekend;
+            foreach ($this->selectedServiceAdditional as $name => $value) {
+                if (empty($value)) {
                     continue;
                 }
 
 
                 $getDataAdditional = ServiceAdditional::where('name', $name)->first();
 
-                if(is_bool($value) && $value == true) {
-                    $serviceAdditional[$getDataAdditional->name] = $getDataAdditional->discount_weekend != 0 ? ((int) $getDataAdditional->price_weekend - ((int) $getDataAdditional->price_weekend * $getDataAdditional->discount_weekend/100)) : (int)$getDataAdditional->price_weekend;
-                if($getDataAdditional->name != 'FREE' || $getDataAdditional->name != '0') {
-                    $priceAdditional += $getDataAdditional->discount_weekend != 0 ? ((int) $getDataAdditional->price_weekend - ((int) $getDataAdditional->price_weekend * $getDataAdditional->discount_weekend/100)) : (int)$getDataAdditional->price_weekend;
-                }
-                } else if(is_bool($value) && $value == false) {
+                if (is_bool($value) && $value == true) {
+                    $serviceAdditional[$getDataAdditional->name] = $getDataAdditional->discount_weekend != 0 ? ((int) $getDataAdditional->price_weekend - ((int) $getDataAdditional->price_weekend * $getDataAdditional->discount_weekend / 100)) : (int)$getDataAdditional->price_weekend;
+                    if ($getDataAdditional->name != 'FREE' || $getDataAdditional->name != '0') {
+                        $priceAdditional += $getDataAdditional->discount_weekend != 0 ? ((int) $getDataAdditional->price_weekend - ((int) $getDataAdditional->price_weekend * $getDataAdditional->discount_weekend / 100)) : (int)$getDataAdditional->price_weekend;
+                    }
+                } else if (is_bool($value) && $value == false) {
                     continue;
                 } else {
-                    if(strtolower($getDataAdditional->name) == 'sesi foto 5 menit') {
+                    if (strtolower($getDataAdditional->name) == 'sesi foto 5 menit') {
                         $addMinute = (5 * (int)$value) + $perMinute;
                         $sesi = $value;
 
-                       $outTime =  Carbon::parse('2018-06-15 ' . $this->time)->addMinute($addMinute)->format('H:i');
+                        $outTime =  Carbon::parse('2018-06-15 ' . $this->time)->addMinute($addMinute)->format('H:i');
                     }
-                    $serviceAdditional[$getDataAdditional->name] = $getDataAdditional->discount_weekend != 0 ? ((int) $getDataAdditional->price_weekend - ((int) $getDataAdditional->price_weekend * $getDataAdditional->discount_weekend/100)) * (int)$value : (int)$getDataAdditional->price_weekend * (int)$value;
-                if($getDataAdditional->name != 'FREE' || $getDataAdditional->name != '0') {
-                    $priceAdditional += $getDataAdditional->discount_weekend != 0 ? ((int) $getDataAdditional->price_weekend - ((int) $getDataAdditional->price_weekend * $getDataAdditional->discount_weekend/100)) * (int)$value : (int)$getDataAdditional->price_weekend * (int)$value;
+                    if ((int)$value - (int)$getDataAdditional->default_value != 0) {
+                        $serviceAdditional[$getDataAdditional->name] = [$getDataAdditional->discount_weekend != 0 ? ((int) $getDataAdditional->price_weekend - ((int) $getDataAdditional->price_weekend * $getDataAdditional->discount_weekend / 100)) * ((int)$value - (int)$getDataAdditional->default_value) : (int)$getDataAdditional->price_weekend * ((int)$value - (int)$getDataAdditional->default_value), (int)$value - (int)$getDataAdditional->default_value];
+                        if ($getDataAdditional->name != 'FREE' || $getDataAdditional->name != '0') {
+                            $priceAdditional += $getDataAdditional->discount_weekend != 0 ? ((int) $getDataAdditional->price_weekend - ((int) $getDataAdditional->price_weekend * $getDataAdditional->discount_weekend / 100)) * ((int)$value - (int)$getDataAdditional->default_value) : (int)$getDataAdditional->price_weekend * ((int)$value - (int)$getDataAdditional->default_value);
+                        }
+                    }
                 }
-                }
-
             }
         }
 
         $priceTotal = (int) $pricePackage + $priceAdditional;
-
         $service = Service::where('name', $this->service)->first();
-        if($service->status_payment != 'Full Payment') {
-            $dp = ((int) $pricePackage + $priceAdditional) * 50/100;
+        if ($service->status_payment != 'Full Payment') {
+            $dp = ((int) $pricePackage + $priceAdditional) * 50 / 100;
         }
 
 
 
         $invoice = 'INV-' . rand();
 
-          // Set your Merchant Server Key
+        // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
         // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
         \Midtrans\Config::$isProduction = config('midtrans.is_production');
@@ -192,23 +200,21 @@ class ProductShow extends Component
         // Set 3DS transaction for credit card to true
         \Midtrans\Config::$is3ds = config('midtrans.is_3ds');
 
-                $params = array(
-                    'transaction_details' => array(
-                        'order_id' => $invoice,
-                        'gross_amount' => $dp ?? $priceTotal,
-                    )
-                );
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => $invoice,
+                'gross_amount' => $dp ?? $priceTotal,
+            )
+        );
 
-                try {
-                // Get Snap Payment Page URL
-                $paymentUrl = \Midtrans\Snap::createTransaction($params)->redirect_url;
+        try {
+            // Get Snap Payment Page URL
+            $paymentUrl = \Midtrans\Snap::createTransaction($params)->redirect_url;
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
 
-                }
-                catch (Exception $e) {
-                echo $e->getMessage();
-                }
-
-        if(empty($sesi) || $sesi == '0') {
+        if (empty($sesi) || $sesi == '0') {
             $booking = Booking::create([
                 'order_id' => $invoice,
                 'price_total' => (string) $priceTotal,
@@ -223,14 +229,14 @@ class ProductShow extends Component
                 'service' => $this->service,
                 'package' => $this->package->name,
                 'additional' => $serviceAdditional,
-                'main_background' => $this->mainBackground,
+                'main_background' => $this->mainBackground ?? '0',
                 'additional_background' => $this->additionalBackground,
                 'status_payment' => 'Proses',
                 'dp' => $dp ?? null,
                 'discount_package' => $discountPackage,
                 'link_payment' => $paymentUrl
             ]);
-        } else if(!empty($sesi)) {
+        } else if (!empty($sesi)) {
             $sesiMinute = $this->time;
 
             $booking = Booking::create([
@@ -255,7 +261,7 @@ class ProductShow extends Component
                 'link_payment' => $paymentUrl
             ]);
 
-            for($i = 1; $i <= (int)$sesi; $i+=3) {
+            for ($i = 1; $i <= (int)$sesi; $i += 3) {
                 $time = Time::where('hour', $sesiMinute)->where('type', $week)->first();
                 $timeNext = $time->next();
                 $sesiMinute = $timeNext->hour;
@@ -281,13 +287,12 @@ class ProductShow extends Component
                     'discount_package' => $discountPackage,
                     'link_payment' => $paymentUrl
                 ]);
-
             }
         }
 
 
 
-        if($booking) {
+        if ($booking) {
             return redirect()->route('reservation', $booking->order_id);
         }
     }

@@ -14,7 +14,8 @@ class ServiceAdditionalIndex extends Component
         'delete'
     ];
 
-    public function confirmDelete($id) {
+    public function confirmDelete($id)
+    {
         $this->additionalId = $id;
 
         $this->dispatchBrowserEvent('swal:confirm', [
@@ -26,18 +27,18 @@ class ServiceAdditionalIndex extends Component
         ]);
     }
 
-    public function delete() {
+    public function delete()
+    {
         $additional = ServiceAdditional::find($this->additionalId);
 
         $additional->delete();
 
         return redirect()->route('admin.additional.index');
-
     }
     public function render()
     {
         return view('livewire.service-additional.service-additional-index', [
-            'serviceAdditionals' => ServiceAdditional::orderBy('service_id')->get()
+            'serviceAdditionals' => ServiceAdditional::orderBy('service_package_id')->get()
         ])->extends('layouts.admin');
     }
 }

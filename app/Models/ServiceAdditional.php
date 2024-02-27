@@ -11,9 +11,9 @@ class ServiceAdditional extends Model
     use HasFactory, SoftDeletes;
 
     public $guarded = ['id'];
-    public $with = ['service'];
+    public $with = ['servicePackage'];
 
-    public function service() {
-        return $this->belongsTo(Service::class);
+    public function servicePackage() {
+        return $this->belongsTo(ServicePackage::class);
     }
 }

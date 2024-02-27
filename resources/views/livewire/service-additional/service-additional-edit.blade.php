@@ -10,20 +10,20 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Name Service</label>
-                                @error('service')
+                                <label>Name Package</label>
+                                @error('package')
                                     <div class="text-danger">
                                         {{ $message }}</div>
                                 @enderror
                                 <select
-                                    class="form-control @error('service')
+                                    class="form-control @error('package')
                                 border-danger
                             @enderror"
-                                    wire:model="service">
-                                    <option>------Pilih Service------- </option>
+                                    wire:model="package">
+                                    <option>------Pilih Package------- </option>
 
-                                    @foreach ($services as $service)
-                                        <option value="{{ $service->id }}">{{ $service->name }}</option>
+                                    @foreach ($packages as $package)
+                                        <option value="{{ $package->id }}">{{ $package->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -43,6 +43,18 @@
                                     <option value="checkbox">Checkbox</option>
                                     <option value="number">Number</option>
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Default Value</label>
+                                @error('defaultValue')
+                                    <div class="text-danger">
+                                        {{ $message }}</div>
+                                @enderror
+                                <input type="text"
+                                    class="form-control @error('defaultValue')
+                                border-danger
+                            @enderror "
+                                    placeholder="" wire:model="defaultValue">
                             </div>
                             <div class="form-group">
                                 <label>Name Additional</label>

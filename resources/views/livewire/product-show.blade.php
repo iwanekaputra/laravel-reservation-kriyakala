@@ -74,7 +74,9 @@
                                                     <div class="did-floating-label-content">
 
 
-                                                        <input class="did-floating-input" type="number" placeholder=""
+                                                        <input class="did-floating-input"
+                                                            min="{{ $serviceAdditional->default_value }}" type="number"
+                                                            placeholder=""
                                                             wire:model="selectedServiceAdditional.{{ $serviceAdditional->name }}">
                                                         <label
                                                             class="did-floating-label">{{ $serviceAdditional->name }}</label>
@@ -85,7 +87,10 @@
                                                     <div class="did-floating-label-content">
 
 
-                                                        <input class="did-floating-input" type="number" placeholder=""
+                                                        <input class="did-floating-input"
+                                                            min="{{ $serviceAdditional->default_value }}"
+                                                            @if ($serviceAdditional->max_value) max="{{ $serviceAdditional->max_value }}" @endif
+                                                            type="number" placeholder=""
                                                             wire:model="selectedServiceAdditional.{{ $serviceAdditional->name }}">
                                                         <label
                                                             class="did-floating-label">{{ $serviceAdditional->name }}</label>
