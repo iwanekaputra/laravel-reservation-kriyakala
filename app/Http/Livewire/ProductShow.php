@@ -236,6 +236,12 @@ class ProductShow extends Component
                 'discount_package' => $discountPackage,
                 'link_payment' => $paymentUrl
             ]);
+
+            $this->sendWa($booking);
+
+            if ($booking) {
+                return redirect()->route('reservation', $booking->order_id);
+            }
         } else if (!empty($sesi)) {
             $sesiMinute = $this->time;
 
@@ -288,13 +294,58 @@ class ProductShow extends Component
                     'link_payment' => $paymentUrl
                 ]);
             }
+
+            $this->sendWa($booking);
+
+            if ($booking) {
+                return redirect()->route('reservation', $booking->order_id);
+            }
+        }
+    }
+
+    public function sendWa($booking)
+    {
+        $token = "EZUtFffJDCz#XL2KeAuP";
+        $curl = curl_init();
+
+        $additional = "";
+
+        if (!empty($booking->additional)) {
+            foreach ($booking->additional as $key => $value) {
+                if ($value[0] == 'FREE' || $value[0] || '0') {
+                    $price =  (string) $value[0];
+                } else {
+
+                    $price =  number_format($value[0], 0, ',', '.');
+                }
+
+                $additional .= $key . ": Rp. " . $price . "\n";
+            }
         }
 
 
 
-        if ($booking) {
-            return redirect()->route('reservation', $booking->order_id);
-        }
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.fonnte.com/send',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => array(
+                'target' => $booking->nowa,
+                'message' => 'No Invoice : ' . $booking->order_id . "\n" . 'Nama : ' . $booking->name . "\n" . 'email : ' . $booking->email . "\n\n" .
+                    "Studio : " . $booking->studio . "\n" . "Layanan : " . $booking->service . "\n" . "Paket : " . $booking->package . " Rp. " . number_format((int) $booking->price_package, 0, ',', '.') . "\n" . "Tambahan : " . "\n" . $additional . "\n" . "Background Utama : " .  $booking->main_background . "\n" . "Tanggal/waktu : " . $booking->in_date . " " . $booking->time . "\n\n" . "Total Harga : Rp. " . number_format((int) $booking->price_total, 0, ',', '.') . "\n" . "status pembayaran : " . $booking->status_payment . "\n\n" . "Note : Jika ingin melanjutkan pembayaran silakan klik link ini" . "\n" . $booking->link_payment
+            ),
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: ' . $token
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        curl_close($curl);
     }
 
     public function render()
