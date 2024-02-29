@@ -91,7 +91,7 @@ class ProductShow extends Component
 
     public function save()
     {
-        // $this->validate();
+        $this->validate();
         $selectDate = Carbon::parse(strtotime($this->appointment));
 
         $serviceAdditional = [];
