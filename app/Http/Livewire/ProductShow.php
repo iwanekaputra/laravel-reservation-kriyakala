@@ -32,7 +32,7 @@ class ProductShow extends Component
         'name' => 'required',
         'email' => 'required|email',
         'nowa' => 'required',
-        'mainBackground' => 'required',
+        // 'mainBackground' => 'required',
         'appointment' => 'required',
         'time' => 'required'
     ];
