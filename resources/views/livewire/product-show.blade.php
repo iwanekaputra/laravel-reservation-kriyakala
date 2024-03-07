@@ -62,39 +62,64 @@
                                         <div class="text-danger">
                                             {{ $message }}</div>
                                     @enderror
-                                    <div class="text-danger">Note : Informasi pesanan akan kami kirim lewat wa</div>
+                                    <div class="text-danger" style="font-size: 14px">Note : Informasi pesanan akan kami
+                                        kirim lewat wa</div>
 
                                 </div>
 
                                 @if ($serviceAdditionals->count())
+                                    <label class="d-block color-salmon">Additional</label>
                                     <div class="form-group">
                                         @foreach ($serviceAdditionals as $serviceAdditional)
                                             @if ($serviceAdditional->type_input == 'number')
                                                 @if (strtolower($serviceAdditional->name) == 'sesi foto 5 menit')
-                                                    <div class="did-floating-label-content">
+                                                    <div class="d-flex">
+                                                        <input class="mr-2 "
+                                                            style="width : 20px; height
+                                                        20px; margin-top : -20px"
+                                                            type="checkbox"
+                                                            wire:model="isDisable.{{ $serviceAdditional->name }}">
 
+                                                        <div class="did-floating-label-content w-100  mt-3">
+                                                            <input class="did-floating-input "
+                                                                min="{{ $serviceAdditional->default_value }}"
+                                                                type="number" placeholder=""
+                                                                wire:model="selectedServiceAdditional.{{ $serviceAdditional->name }}"
+                                                                @if (!$isDisable[$serviceAdditional->name]) disabled @endif>
+                                                            <label
+                                                                class="did-floating-label">{{ $serviceAdditional->name }}</label>
+                                                            <div class="text-danger" style="font-size : 14px">Note : Isi
+                                                                1 = Penambahan
+                                                                {{ $serviceAdditional->name }}</div>
 
-                                                        <input class="did-floating-input"
-                                                            min="{{ $serviceAdditional->default_value }}" type="number"
-                                                            placeholder=""
-                                                            wire:model="selectedServiceAdditional.{{ $serviceAdditional->name }}">
-                                                        <label
-                                                            class="did-floating-label">{{ $serviceAdditional->name }}</label>
-                                                        <div class="text-danger">Note : Isi 1 = 5 Menit</div>
+                                                        </div>
 
                                                     </div>
                                                 @else
-                                                    <div class="did-floating-label-content">
+                                                    <div class="d-flex">
+                                                        <input class="mr-2"
+                                                            style="width : 20px; height
+                                                    20px; margin-top : -20px"
+                                                            type="checkbox"
+                                                            wire:model="isDisable.{{ $serviceAdditional->name }}">
+
+                                                        <div class="did-floating-label-content  w-100  mt-3">
 
 
-                                                        <input class="did-floating-input"
-                                                            min="{{ $serviceAdditional->default_value }}"
-                                                            @if ($serviceAdditional->max_value) max="{{ $serviceAdditional->max_value }}" @endif
-                                                            type="number" placeholder=""
-                                                            wire:model="selectedServiceAdditional.{{ $serviceAdditional->name }}">
-                                                        <label
-                                                            class="did-floating-label">{{ $serviceAdditional->name }}</label>
+                                                            <input class="did-floating-input"
+                                                                min="{{ $serviceAdditional->default_value }}"
+                                                                @if ($serviceAdditional->max_value) max="{{ $serviceAdditional->max_value }}" @endif
+                                                                type="number" placeholder=""
+                                                                wire:model="selectedServiceAdditional.{{ $serviceAdditional->name }}"
+                                                                @if (!$isDisable[$serviceAdditional->name]) disabled @endif>
+                                                            <label
+                                                                class="did-floating-label">{{ $serviceAdditional->name }}</label>
+                                                            <div class="text-danger" style="font-size: 14px">Note : Isi
+                                                                1 =
+                                                                Penambahan
+                                                                {{ $serviceAdditional->name }}</div>
 
+                                                        </div>
                                                     </div>
                                                 @endif
                                             @elseif ($serviceAdditional->type_input == 'checkbox')
@@ -218,7 +243,8 @@
                                                             <input type="radio" name="{{ $time->hour }}"
                                                                 value="{{ $time->hour }}" class="selectgroup-input"
                                                                 wire:model="time">
-                                                            <span class="selectgroup-button">{{ $time->hour }}</span>
+                                                            <span
+                                                                class="selectgroup-button">{{ $time->hour }}</span>
                                                         </label>
                                                     </div>
                                                 @endforeach

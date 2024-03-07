@@ -28,6 +28,8 @@ class ProductShow extends Component
     public $service;
     public $studio;
 
+    public $isDisable = [];
+
     protected $rules = [
         'name' => 'required',
         'email' => 'required|email',
@@ -47,6 +49,7 @@ class ProductShow extends Component
 
         $this->selectedServiceAdditional = [];
         foreach ($this->serviceAdditionals as $serviceAdditional) {
+            $this->isDisable[$serviceAdditional->name] = false;
             $this->selectedServiceAdditional[$serviceAdditional->name] = $serviceAdditional->default_value == 'false' ? false : $serviceAdditional->default_value;
         }
 
@@ -91,7 +94,8 @@ class ProductShow extends Component
 
     public function save()
     {
-        $this->validate();
+        dd($this->isDisable);
+        // $this->validate();
         $selectDate = Carbon::parse(strtotime($this->appointment));
 
         $serviceAdditional = [];
