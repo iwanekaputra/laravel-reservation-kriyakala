@@ -161,7 +161,7 @@ class ProductShow extends Component
                 $getDataAdditional = ServiceAdditional::where('name', $name)->first();
 
                 if (is_bool($value) && $value == true) {
-                    $serviceAdditional[$getDataAdditional->name] = $getDataAdditional->discount_weekend != 0 ? ((int) $getDataAdditional->price_weekend - ((int) $getDataAdditional->price_weekend * $getDataAdditional->discount_weekend / 100)) : (int)$getDataAdditional->price_weekend;
+                    $serviceAdditional[$getDataAdditional->name] = [$getDataAdditional->discount_weekend != 0 ? ((int) $getDataAdditional->price_weekend - ((int) $getDataAdditional->price_weekend * $getDataAdditional->discount_weekend / 100)) : (int)$getDataAdditional->price_weekday, '1'];
                     if ($getDataAdditional->name != 'FREE' || $getDataAdditional->name != '0') {
                         $priceAdditional += $getDataAdditional->discount_weekend != 0 ? ((int) $getDataAdditional->price_weekend - ((int) $getDataAdditional->price_weekend * $getDataAdditional->discount_weekend / 100)) : (int)$getDataAdditional->price_weekend;
                     }
