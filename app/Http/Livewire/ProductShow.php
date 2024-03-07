@@ -138,6 +138,7 @@ class ProductShow extends Component
                         $sesi = $value;
                         $outTime =  Carbon::parse('2018-06-15 ' . $this->time)->addMinute($addMinute)->format('H:i');
                     }
+
                     if ((int)$value - (int)$getDataAdditional->default_value != 0) {
                         $serviceAdditional[$getDataAdditional->name] = [$getDataAdditional->discount_weekday != 0 ? ((int) $getDataAdditional->price_weekday - ((int) $getDataAdditional->price_weekday * $getDataAdditional->discount_weekday / 100)) * ((int)$value - (int)$getDataAdditional->default_value) : (int)$getDataAdditional->price_weekday * ((int)$value - (int)$getDataAdditional->default_value), (int)$value - (int)$getDataAdditional->default_value];
                         if ($getDataAdditional->name != 'FREE' || $getDataAdditional->name != '0') {
@@ -158,7 +159,7 @@ class ProductShow extends Component
                 }
 
 
-                $getDataAdditional = ServiceAdditional::where('name', $name)->first();
+                $getDataAdditional = ServiceAdditional::where('name', $name)->where('service_package_id', $this->package->id)->first();
 
                 if (is_bool($value) && $value == true) {
                     $serviceAdditional[$getDataAdditional->name] = [$getDataAdditional->discount_weekend != 0 ? ((int) $getDataAdditional->price_weekend - ((int) $getDataAdditional->price_weekend * $getDataAdditional->discount_weekend / 100)) : (int)$getDataAdditional->price_weekday, '1'];
@@ -174,6 +175,7 @@ class ProductShow extends Component
 
                         $outTime =  Carbon::parse('2018-06-15 ' . $this->time)->addMinute($addMinute)->format('H:i');
                     }
+
                     if ((int)$value - (int)$getDataAdditional->default_value != 0) {
                         $serviceAdditional[$getDataAdditional->name] = [$getDataAdditional->discount_weekend != 0 ? ((int) $getDataAdditional->price_weekend - ((int) $getDataAdditional->price_weekend * $getDataAdditional->discount_weekend / 100)) * ((int)$value - (int)$getDataAdditional->default_value) : (int)$getDataAdditional->price_weekend * ((int)$value - (int)$getDataAdditional->default_value), (int)$value - (int)$getDataAdditional->default_value];
                         if ($getDataAdditional->name != 'FREE' || $getDataAdditional->name != '0') {
