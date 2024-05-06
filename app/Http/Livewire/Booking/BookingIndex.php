@@ -19,8 +19,9 @@ class BookingIndex extends Component
         'delete'
     ];
 
-    public function confirmDelete($id) {
-        $this->bookingId= $id;
+    public function confirmDelete($id)
+    {
+        $this->bookingId = $id;
 
 
         $this->dispatchBrowserEvent('swal:confirm', [
@@ -32,10 +33,11 @@ class BookingIndex extends Component
         ]);
     }
 
-    public function delete() {
+    public function delete()
+    {
         $booking = Booking::where('order_id', $this->bookingId)->get();
 
-        foreach($booking as $bo) {
+        foreach ($booking as $bo) {
             $bo->delete();
         }
 
@@ -45,7 +47,7 @@ class BookingIndex extends Component
     public function render()
     {
         return view('livewire.booking.booking-index', [
-            'bookings' => Booking::orderBy('status_payment')->paginate(10)
+            'bookings' => Booking::orderBy('in_date')->paginate(10)
         ])->extends('layouts.admin');
     }
 }
