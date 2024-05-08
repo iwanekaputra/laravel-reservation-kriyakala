@@ -25,7 +25,7 @@ class TransactionSuccess extends Component
                 ]);
             }
 
-            $token = "EC+J14vCed2nR3Nuj19v";
+            $token = "9d@LLbhYD9+oWueUDtx9";
             $curl = curl_init();
 
             $additional = "";
