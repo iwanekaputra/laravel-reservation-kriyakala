@@ -33,8 +33,8 @@
                                <ul>
                                    <li class="{{ Request::is('/') ? 'active' : '' }}"><a
                                            href="{{ url('/') }}">Home</a></li>
-                                   {{-- <li class="{{ Request::is('products') ? 'active' : '' }}"><a
-                                           href="{{ route('product.show', 31) }}">Promo Group</a></li> --}}
+                                   <li class="{{ Request::is('products') ? 'active' : '' }}"><a
+                                           href="{{ route('product.show', 31) }}">Promo Group</a></li>
                                    <li class="{{ Request::is('products') ? 'active' : '' }}"><a
                                            href="{{ url('/products') }}">Product</a></li>
                                    {{-- <li class="{{ Request::is('service') ? 'active' : '' }}"><a
