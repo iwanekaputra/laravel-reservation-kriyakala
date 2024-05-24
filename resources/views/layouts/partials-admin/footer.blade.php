@@ -10,6 +10,7 @@
 </div>
 </div>
 
+
 <!-- General JS Scripts -->
 <script src="/stisla/dist/assets/modules/jquery.min.js"></script>
 <script src="/stisla/dist/assets/modules/popper.js"></script>
@@ -45,30 +46,30 @@
 
 <script>
     window.addEventListener('swal:modal', event => {
-          swal({
-              title: event.detail.message,
-              text: event.detail.text,
-              icon: event.detail.type,
-              timer : 3000
-          }).then(function () {
-              window.livewire.emit(event.detail.redirect);
-          });
-      });
+        swal({
+            title: event.detail.message,
+            text: event.detail.text,
+            icon: event.detail.type,
+            timer: 3000
+        }).then(function() {
+            window.livewire.emit(event.detail.redirect);
+        });
+    });
 
-      window.addEventListener('swal:confirm', event => {
-          swal({
-          title: event.detail.message,
-          text: event.detail.text,
-          icon: event.detail.type,
-          buttons: true,
-          dangerMode: true,
-          })
-          .then((willDelete) => {
-          if (willDelete) {
-              window.livewire.emit(event.detail.action);
-          }
-          });
-      });
+    window.addEventListener('swal:confirm', event => {
+        swal({
+                title: event.detail.message,
+                text: event.detail.text,
+                icon: event.detail.type,
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.livewire.emit(event.detail.action);
+                }
+            });
+    });
 </script>
 </body>
 
