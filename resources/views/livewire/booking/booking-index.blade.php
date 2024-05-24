@@ -178,7 +178,7 @@
     <script>
         window.addEventListener('okelah', event => {
             window.location.href =
-                `http://laravel-reservation-kriyakala.test/admin/bookings?startDate=${event.detail.startDate}&endDate=${event.detail.endDate}`;
+                `https://reservation.kriyakala.id/admin/bookings?startDate=${event.detail.startDate}&endDate=${event.detail.endDate}`;
         });
 
         $('input[name="datefilter"]').daterangepicker({
