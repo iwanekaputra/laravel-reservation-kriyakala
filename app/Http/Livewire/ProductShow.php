@@ -30,17 +30,17 @@ class ProductShow extends Component
 
     public $isDisable = [];
 
-    protected $rules = [
-        'name' => 'required',
-        'email' => 'required|email',
-        'nowa' => 'required',
-        // 'mainBackground' => 'required',
-        'appointment' => 'required',
-        'time' => 'required'
+    public $todayDate;
+
+
+    protected $listeners = [
+        'updatedAppointment'
     ];
+
 
     public function mount($id)
     {
+        $this->todayDate = Carbon::now()->format('Y-m-d');
 
         $this->package = ServicePackage::find($id);
         $this->service = $this->package->service->name;
@@ -61,14 +61,20 @@ class ProductShow extends Component
     public function showForm()
     {
         $this->isShowForm = true;
+        $this->dispatchBrowserEvent('datepick');
     }
 
 
 
 
 
-    public function updatedAppointment()
+    public function updatedAppointment($date)
     {
+        $modifDate = explode("/", $date);
+
+
+        $this->appointment = $modifDate[2] . '-' . $modifDate[0] . '-' . $modifDate[1];
+        $this->dispatchBrowserEvent('pantek');
         $selectDate = Carbon::parse(strtotime($this->appointment));
 
         $getBooking = Booking::where('in_date', $this->appointment)->where('studio', $this->studio);
@@ -94,7 +100,14 @@ class ProductShow extends Component
 
     public function save()
     {
-        $this->validate();
+        $this->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'nowa' => 'required',
+            // 'mainBackground' => 'required',
+            'appointment' => 'after:' . $this->todayDate,
+            'time' => 'required'
+        ]);
         $selectDate = Carbon::parse(strtotime($this->appointment));
 
         $serviceAdditional = [];

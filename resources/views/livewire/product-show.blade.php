@@ -1,5 +1,5 @@
 <div>
-    <div class="container" style="margin-top: 150px; margin-bottom : 150px">
+    <div class="container" style="margin-top: 150px; margin-bottom : 150px" x-data="data">
         <div class="row">
             <div class="col-12 col-lg-6" style="height: 400px">
                 @if ($package->galleries->count())
@@ -28,151 +28,151 @@
                 </div>
                 <hr>
                 <div>
-                    <button class="btn w-100 btn-secondary" wire:click="showForm">
+                    <button class="btn w-100 btn-secondary" x-on:click="toggle">
                         Online Reservation
                     </button>
-                    @if ($isShowForm)
-                        <div class="mt-4">
-                            <p class="font-bold">Online Reservation</p>
-                            <form wire:submit.prevent="save">
-                                <div class="did-floating-label-content">
-                                    <input class="did-floating-input" type="text" placeholder="" wire:model="name">
-                                    <label class="did-floating-label">Name</label>
-                                    @error('name')
-                                        <div class="text-danger">
-                                            {{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="did-floating-label-content">
+
+                    <div class="mt-4" x-show="open">
+                        <p class="font-bold">Online Reservation</p>
+                        <form wire:submit.prevent="save">
+                            <div class="did-floating-label-content">
+                                <input class="did-floating-input" type="text" placeholder="" wire:model="name">
+                                <label class="did-floating-label">Name</label>
+                                @error('name')
+                                    <div class="text-danger">
+                                        {{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="did-floating-label-content">
 
 
-                                    <input class="did-floating-input" type="email" placeholder="" wire:model="email">
-                                    <label class="did-floating-label">Email</label>
-                                    @error('email')
-                                        <div class="text-danger">
-                                            {{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="did-floating-label-content">
+                                <input class="did-floating-input" type="email" placeholder="" wire:model="email">
+                                <label class="did-floating-label">Email</label>
+                                @error('email')
+                                    <div class="text-danger">
+                                        {{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="did-floating-label-content">
 
 
-                                    <input class="did-floating-input" type="number" placeholder="" wire:model="nowa">
-                                    <label class="did-floating-label">No. Whatsapp</label>
-                                    @error('nowa')
-                                        <div class="text-danger">
-                                            {{ $message }}</div>
-                                    @enderror
-                                    <div class="text-danger" style="font-size: 14px">Note : Informasi pesanan akan kami
-                                        kirim lewat wa</div>
+                                <input class="did-floating-input" type="number" placeholder="" wire:model="nowa">
+                                <label class="did-floating-label">No. Whatsapp</label>
+                                @error('nowa')
+                                    <div class="text-danger">
+                                        {{ $message }}</div>
+                                @enderror
+                                <div class="text-danger" style="font-size: 14px">Note : Informasi pesanan akan kami
+                                    kirim lewat wa</div>
 
-                                </div>
+                            </div>
 
-                                @if ($serviceAdditionals->count())
-                                    <label class="d-block color-salmon">Additional</label>
-                                    <div class="form-group">
-                                        @foreach ($serviceAdditionals as $serviceAdditional)
-                                            @if ($serviceAdditional->type_input == 'number')
-                                                @if (strtolower($serviceAdditional->name) == 'sesi foto 5 menit')
-                                                    <div class="d-flex">
-                                                        <input class="mr-2 "
-                                                            style="width : 20px; height
+                            @if ($serviceAdditionals->count())
+                                <label class="d-block color-salmon">Additional</label>
+                                <div class="form-group">
+                                    @foreach ($serviceAdditionals as $serviceAdditional)
+                                        @if ($serviceAdditional->type_input == 'number')
+                                            @if (strtolower($serviceAdditional->name) == 'sesi foto 5 menit')
+                                                <div class="d-flex">
+                                                    <input class="mr-2 "
+                                                        style="width : 20px; height
                                                         20px; margin-top : -20px"
-                                                            type="checkbox"
-                                                            wire:model="isDisable.{{ $serviceAdditional->name }}">
+                                                        type="checkbox"
+                                                        wire:model="isDisable.{{ $serviceAdditional->name }}">
 
-                                                        <div class="did-floating-label-content w-100  mt-3">
-                                                            <input class="did-floating-input "
-                                                                min="{{ $serviceAdditional->default_value }}"
-                                                                type="number" placeholder=""
-                                                                wire:model="selectedServiceAdditional.{{ $serviceAdditional->name }}"
-                                                                @if (!$isDisable[$serviceAdditional->name]) disabled @endif>
-                                                            <label
-                                                                class="did-floating-label">{{ $serviceAdditional->name }}</label>
-                                                            <div class="text-danger" style="font-size : 14px">Note : Isi
-                                                                1 = Penambahan
-                                                                {{ $serviceAdditional->name }}</div>
-
-                                                        </div>
+                                                    <div class="did-floating-label-content w-100  mt-3">
+                                                        <input class="did-floating-input "
+                                                            min="{{ $serviceAdditional->default_value }}" type="number"
+                                                            placeholder=""
+                                                            wire:model="selectedServiceAdditional.{{ $serviceAdditional->name }}"
+                                                            @if (!$isDisable[$serviceAdditional->name]) disabled @endif>
+                                                        <label
+                                                            class="did-floating-label">{{ $serviceAdditional->name }}</label>
+                                                        <div class="text-danger" style="font-size : 14px">Note : Isi
+                                                            1 = Penambahan
+                                                            {{ $serviceAdditional->name }}</div>
 
                                                     </div>
-                                                @else
-                                                    <div class="d-flex">
-                                                        <input class="mr-2"
-                                                            style="width : 20px; height
+
+                                                </div>
+                                            @else
+                                                <div class="d-flex">
+                                                    <input class="mr-2"
+                                                        style="width : 20px; height
                                                     20px; margin-top : -20px"
-                                                            type="checkbox"
-                                                            wire:model="isDisable.{{ $serviceAdditional->name }}">
+                                                        type="checkbox"
+                                                        wire:model="isDisable.{{ $serviceAdditional->name }}">
 
-                                                        <div class="did-floating-label-content  w-100  mt-3">
+                                                    <div class="did-floating-label-content  w-100  mt-3">
 
 
-                                                            <input class="did-floating-input"
-                                                                min="{{ $serviceAdditional->default_value }}"
-                                                                @if ($serviceAdditional->max_value) max="{{ $serviceAdditional->max_value }}" @endif
-                                                                type="number" placeholder=""
-                                                                wire:model="selectedServiceAdditional.{{ $serviceAdditional->name }}"
-                                                                @if (!$isDisable[$serviceAdditional->name]) disabled @endif>
-                                                            <label
-                                                                class="did-floating-label">{{ $serviceAdditional->name }}</label>
-                                                            <div class="text-danger" style="font-size: 14px">Note : Isi
-                                                                1 =
-                                                                Penambahan
-                                                                {{ $serviceAdditional->name }}</div>
+                                                        <input class="did-floating-input"
+                                                            min="{{ $serviceAdditional->default_value }}"
+                                                            @if ($serviceAdditional->max_value) max="{{ $serviceAdditional->max_value }}" @endif
+                                                            type="number" placeholder=""
+                                                            wire:model="selectedServiceAdditional.{{ $serviceAdditional->name }}"
+                                                            @if (!$isDisable[$serviceAdditional->name]) disabled @endif>
+                                                        <label
+                                                            class="did-floating-label">{{ $serviceAdditional->name }}</label>
+                                                        <div class="text-danger" style="font-size: 14px">Note : Isi
+                                                            1 =
+                                                            Penambahan
+                                                            {{ $serviceAdditional->name }}</div>
 
-                                                        </div>
                                                     </div>
-                                                @endif
-                                            @elseif ($serviceAdditional->type_input == 'checkbox')
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox"
-                                                        wire:model="selectedServiceAdditional.{{ $serviceAdditional->name }}">
-                                                    <label class="form-check-label color-grey"
-                                                        for="{{ $serviceAdditional->name }}">
-                                                        {{ $serviceAdditional->name }}
-                                                    </label>
                                                 </div>
                                             @endif
-                                        @endforeach
-
-
-                                        @if ($backgroundColors->count())
-                                            <div class="form-group mt-3">
-                                                <label class="d-block color-salmon">Main Background</label>
-                                                @error('mainBackground')
-                                                    <div class="text-danger">
-                                                        {{ $message }}</div>
-                                                @enderror
-                                                <div class="row">
-                                                    @foreach ($backgroundColors as $backgroundColor)
-                                                        <div class="col-6">
-                                                            <div class="form-check">
-                                                                <input
-                                                                    class="form-check-input @error('mainBackground')
-                                                border-danger
-                                            @enderror"
-                                                                    type="radio" name="{{ $backgroundColor->name }}"
-                                                                    id="{{ $backgroundColor->name }}"
-                                                                    value="{{ $backgroundColor->name }}"
-                                                                    wire:model="mainBackground">
-                                                                <label class="form-check-label color-grey"
-                                                                    for="{{ $backgroundColor->name }}">
-                                                                    {{ $backgroundColor->name }}
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-
+                                        @elseif ($serviceAdditional->type_input == 'checkbox')
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox"
+                                                    wire:model="selectedServiceAdditional.{{ $serviceAdditional->name }}">
+                                                <label class="form-check-label color-grey"
+                                                    for="{{ $serviceAdditional->name }}">
+                                                    {{ $serviceAdditional->name }}
+                                                </label>
                                             </div>
                                         @endif
+                                    @endforeach
+
+
+                                    @if ($backgroundColors->count())
+                                        <div class="form-group mt-3">
+                                            <label class="d-block color-salmon">Main Background</label>
+                                            @error('mainBackground')
+                                                <div class="text-danger">
+                                                    {{ $message }}</div>
+                                            @enderror
+                                            <div class="row">
+                                                @foreach ($backgroundColors as $backgroundColor)
+                                                    <div class="col-6">
+                                                        <div class="form-check">
+                                                            <input
+                                                                class="form-check-input @error('mainBackground')
+                                                border-danger
+                                            @enderror"
+                                                                type="radio" name="{{ $backgroundColor->name }}"
+                                                                id="{{ $backgroundColor->name }}"
+                                                                value="{{ $backgroundColor->name }}"
+                                                                wire:model="mainBackground">
+                                                            <label class="form-check-label color-grey"
+                                                                for="{{ $backgroundColor->name }}">
+                                                                {{ $backgroundColor->name }}
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+
+                                        </div>
+                                    @endif
 
 
 
-                                    </div>
-                                @endif
+                                </div>
+                            @endif
 
 
-                                {{-- @if ($backgroundColors->count())
+                            {{-- @if ($backgroundColors->count())
                                     <div class="form-group">
                                         <label class="d-block color-salmon">Additional Background</label>
                                         @error('additionalBackground')
@@ -214,52 +214,46 @@
                                     </div>
                                 @endif --}}
 
+                            <div class="form-group" wire:ignore>
+                                <label class="color-salmon">Appointment</label>
+                                <input class="did-floating-input datepicker" type="text">
+
+
+                            </div>
+
+
+
+                            @if ($times)
                                 <div class="form-group">
-                                    <label class="color-salmon">Appointment</label>
-                                    @error('appointment')
+                                    <label class="form-label color-salmon">Hour</label>
+                                    @error('time')
                                         <div class="text-danger">
                                             {{ $message }}</div>
                                     @enderror
-                                    <input type="date"
-                                        class="form-control color-grey @error('appointment')
-                                border-danger
-                            @enderror"
-                                        wire:model="appointment">
-                                </div>
 
-                                @if ($times)
-                                    <div class="form-group">
-                                        <label class="form-label color-salmon">Hour</label>
-                                        @error('time')
-                                            <div class="text-danger">
-                                                {{ $message }}</div>
-                                        @enderror
-
-                                        <div class="selectgroup w-100">
-                                            <div class="row">
-                                                @foreach ($times as $time)
-                                                    <div class="col-3">
-                                                        <label class="selectgroup-item">
-                                                            <input type="radio" name="{{ $time->hour }}"
-                                                                value="{{ $time->hour }}" class="selectgroup-input"
-                                                                wire:model="time">
-                                                            <span
-                                                                class="selectgroup-button">{{ $time->hour }}</span>
-                                                        </label>
-                                                    </div>
-                                                @endforeach
-                                            </div>
+                                    <div class="selectgroup w-100">
+                                        <div class="row">
+                                            @foreach ($times as $time)
+                                                <div class="col-3">
+                                                    <label class="selectgroup-item">
+                                                        <input type="radio" name="{{ $time->hour }}"
+                                                            value="{{ $time->hour }}" class="selectgroup-input"
+                                                            wire:model="time">
+                                                        <span class="selectgroup-button">{{ $time->hour }}</span>
+                                                    </label>
+                                                </div>
+                                            @endforeach
                                         </div>
-
                                     </div>
-                                @endif
 
-                                <button class="btn w-100 btn-secondary" type="submit">
-                                    Reserve Now
-                                </button>
-                            </form>
-                        </div>
-                    @endif
+                                </div>
+                            @endif
+
+                            <button class="btn w-100 btn-secondary" type="submit">
+                                Reserve Now
+                            </button>
+                        </form>
+                    </div>
 
                 </div>
             </div>
@@ -311,5 +305,31 @@
             @endforeach
         </div>
     </div>
+
+    <script>
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1);
+
+        $(".datepicker").datepicker({
+            minDate: tomorrow,
+            onSelect: function(date) {
+                window.livewire.emit('updatedAppointment', date);
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('data', () => ({
+                open: false,
+
+                toggle() {
+                    this.open = !this.open
+                }
+            }))
+        })
+    </script>
+
 
 </div>
