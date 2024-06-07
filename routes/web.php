@@ -60,13 +60,13 @@ Route::get('/price-list', function () {
     return view('pages.price-list');
 });
 Route::get('/tes', function () {
-
 });
 
 
 
 Route::get('/form-booking', FormBooking::class)->name('form-booking');
 Route::get('/product/{id}', ProductShow::class)->name('product.show');
+Route::get('/products', Product::class)->name('product');
 Route::get('/products', Product::class)->name('product');
 Route::get('/transaction-success', TransactionSuccess::class);
 Route::get('/reschedule', Reschedule::class)->name('reschedule');
@@ -99,5 +99,3 @@ Route::get('/admin/additionals/{id}/edit', ServiceAdditionalEdit::class)->name('
 Route::get('/admin/backgrounds', BackgroundIndex::class)->name('admin.background.index')->middleware('auth');
 Route::get('/admin/backgrounds/create', BackgroundCreate::class)->name('admin.background.create')->middleware('auth');
 Route::get('/admin/backgrounds/{id}/edit', BackgroundEdit::class)->name('admin.background.edit')->middleware('auth');
-
-

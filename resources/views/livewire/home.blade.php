@@ -126,6 +126,13 @@
                                         <img src="/img/portfolio/self-foto/IMG_3640.webp" height="150"
                                             alt="" />
                                     </div>
+                                    <div class="col-12 text-center mt-5">
+                                        <a href="{{ url('products?service=' . '1') }}"
+                                            class="text-decoration-none text-dark py-2 rounded px-5"
+                                            style="border: 1px solid grey">Lets
+                                            Choose Your
+                                            Package</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="tab-pane fade text-center mt-5 mx-auto" id="nav-profile" role="tabpanel"
@@ -151,6 +158,13 @@
                                     <div class="col-3 mt-2">
                                         <img src="/img/portfolio/graduation/Copy of SYN-00055.webp" height="150"
                                             alt="" />
+                                    </div>
+                                    <div class="col-12 text-center mt-5">
+                                        <a href="{{ url('products?service=' . '2') }}"
+                                            class="text-decoration-none text-dark py-2 rounded px-5"
+                                            style="border: 1px solid grey">Lets
+                                            Choose Your
+                                            Package</a>
                                     </div>
                                 </div>
                             </div>
@@ -187,6 +201,13 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-12 text-center mt-5">
+                                        <a href="{{ url('products?service=' . '3') }}"
+                                            class="text-decoration-none text-dark py-2 rounded px-5"
+                                            style="border: 1px solid grey">Lets
+                                            Choose Your
+                                            Package</a>
+                                    </div>
 
                                 </div>
                             </div>
@@ -221,6 +242,13 @@
                                                     alt="" />
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col-12 text-center mt-5">
+                                        <a href="{{ url('products?service=' . '4') }}"
+                                            class="text-decoration-none text-dark py-2 rounded px-5"
+                                            style="border: 1px solid grey">Lets
+                                            Choose Your
+                                            Package</a>
                                     </div>
 
                                 </div>
@@ -258,6 +286,13 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-12 text-center mt-5">
+                                        <a href="{{ url('products?service=' . '6') }}"
+                                            class="text-decoration-none text-dark py-2 rounded px-5"
+                                            style="border: 1px solid grey">Lets
+                                            Choose Your
+                                            Package</a>
+                                    </div>
 
                                 </div>
                             </div>
@@ -294,6 +329,13 @@
                                             </div> --}}
                                         </div>
                                     </div>
+                                    <div class="col-12 text-center mt-5">
+                                        <a href="{{ url('products?service=' . '5') }}"
+                                            class="text-decoration-none text-dark py-2 rounded px-5"
+                                            style="border: 1px solid grey">Lets
+                                            Choose Your
+                                            Package</a>
+                                    </div>
 
                                 </div>
                             </div>
@@ -303,12 +345,7 @@
                 </div>
             </div>
 
-            <div class="col-12 text-center mt-5">
-                <a href="{{ route('product') }}" class="text-decoration-none text-dark py-2 rounded px-5"
-                    style="border: 1px solid grey">Lets
-                    Choose Your
-                    Package</a>
-            </div>
+
         </div>
 
         <div class="row justify-content-center mb-5" style="margin-top: 100px">

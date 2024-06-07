@@ -18,7 +18,15 @@ class Product extends Component
 
     public $servicePackages;
 
-    public function updatedServiceId() {
+    public function mount()
+    {
+        if (isset($_GET['service'])) {
+            $this->serviceId = $_GET['service'];
+        }
+    }
+
+    public function updatedServiceId()
+    {
         $this->resetPage();
     }
 
@@ -26,8 +34,8 @@ class Product extends Component
     {
 
         return view('livewire.product', [
-            'services' => Service::get(),
-            'packages' => $this->serviceId == null || $this->serviceId == '0' ? ServicePackage::orderBy('price_weekday')->paginate(9) : ServicePackage::where('service_id' , $this->serviceId)->orderBy('price_weekday')->paginate(9)
+            'services' => Service::orderBy('order_number')->get(),
+            'packages' => $this->serviceId == null || $this->serviceId == '0' ? ServicePackage::orderBy('price_weekday')->paginate(9) : ServicePackage::where('service_id', $this->serviceId)->orderBy('price_weekday')->paginate(9)
         ])->extends('layouts.main');
     }
 }

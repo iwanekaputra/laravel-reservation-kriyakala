@@ -33,7 +33,9 @@
                                     {{-- <img src="{{ Storage::url('galleries/' .$package->galleries->first()->image); }}"
                                     class="card-img-top" alt="..."> --}}
                                     <div class="card-body text-center p-2">
-                                        <h5 class="">{{ $package->name }}</h5>
+                                        <h5 class="">{{ $package->name }}
+                                            {{ $package->service->id == 1 || $package->service->id == 8 ? '-' . $package->service->name : '' }}
+                                        </h5>
                                         <p class="card-text">Rp.
                                             {{ number_format($package->price_weekday, 0, ',', '.') }} (Weekday)
                                             <span class="d-block">Rp.

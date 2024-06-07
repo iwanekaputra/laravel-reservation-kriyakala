@@ -234,14 +234,28 @@
                                     <div class="selectgroup w-100">
                                         <div class="row">
                                             @foreach ($times as $time)
-                                                <div class="col-3">
-                                                    <label class="selectgroup-item">
-                                                        <input type="radio" name="{{ $time->hour }}"
-                                                            value="{{ $time->hour }}" class="selectgroup-input"
-                                                            wire:model="time">
-                                                        <span class="selectgroup-button">{{ $time->hour }}</span>
-                                                    </label>
-                                                </div>
+                                                @if (in_array($time->hour, $getBookings->pluck('time')->toArray()))
+                                                    <div class="col-3">
+                                                        <label class="selectgroup-item bg-danger">
+                                                            <input type="radio" name="{{ $time->hour }}"
+                                                                value="{{ $time->hour }}"
+                                                                class="selectgroup-input bg-danger" wire:model="time"
+                                                                disabled>
+                                                            <span
+                                                                class="selectgroup-button bg-danger text-white">{{ $time->hour }}</span>
+                                                        </label>
+                                                    </div>
+                                                @else
+                                                    <div class="col-3">
+                                                        <label class="selectgroup-item">
+                                                            <input type="radio" name="{{ $time->hour }}"
+                                                                value="{{ $time->hour }}" class="selectgroup-input"
+                                                                wire:model="time">
+                                                            <span
+                                                                class="selectgroup-button">{{ $time->hour }}</span>
+                                                        </label>
+                                                    </div>
+                                                @endif
                                             @endforeach
                                         </div>
                                     </div>

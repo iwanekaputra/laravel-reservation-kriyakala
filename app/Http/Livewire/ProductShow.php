@@ -32,6 +32,8 @@ class ProductShow extends Component
 
     public $todayDate;
 
+    public $getBookings = [];
+
 
     protected $listeners = [
         'updatedAppointment'
@@ -74,10 +76,12 @@ class ProductShow extends Component
 
 
         $this->appointment = $modifDate[2] . '-' . $modifDate[0] . '-' . $modifDate[1];
-        $this->dispatchBrowserEvent('pantek');
         $selectDate = Carbon::parse(strtotime($this->appointment));
 
         $getBooking = Booking::where('in_date', $this->appointment)->where('studio', $this->studio);
+
+        $this->getBookings = $getBooking->get();
+
 
         if ($selectDate->isWeekday()) {
             $this->times = Time::whereHas('service', function ($query) {
@@ -85,7 +89,7 @@ class ProductShow extends Component
                 $query->whereHas('studio', function ($query) {
                     $query->where("name", $this->studio);
                 });
-            })->where('type', 'weekday')->whereNotIn('hour', $getBooking->pluck('time'))->get();
+            })->where('type', 'weekday')->get();
         }
 
         if ($selectDate->isWeekend()) {
@@ -94,7 +98,7 @@ class ProductShow extends Component
                 $query->whereHas('studio', function ($query) {
                     $query->where("name", $this->studio);
                 });
-            })->where('type', 'weekend')->whereNotIn('hour', $getBooking->pluck('time'))->get();
+            })->where('type', 'weekend')->get();
         }
     }
 
