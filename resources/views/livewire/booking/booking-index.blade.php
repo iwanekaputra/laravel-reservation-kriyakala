@@ -116,7 +116,8 @@
                                         <th>Invoice</th>
                                         <th>Nama</th>
                                         <th>No wa</th>
-                                        <th>Date</th>
+                                        <th>Tanggal Booking</th>
+                                        <th>Tanggal Dibuat</th>
                                         <th>Total Price</th>
                                         <th>Status Pembayaran</th>
                                         <th>Action</th>
@@ -138,6 +139,9 @@
                                             </td>
                                             <td>
                                                 {{ $value[0]->in_date }}
+                                            </td>
+                                            <td>
+                                                {{ $value[0]->created_at }}
                                             </td>
                                             <td>Rp. {{ number_format((int) $value[0]->price_total, 0, ',', '.') }}</td>
                                             <td>

@@ -40,9 +40,9 @@ class BookingIndex extends Component
             $endDa = explode("-", $_GET['endDate']);
             $this->filterDate = $startDa[1] . '/' . $startDa[2] . '/' . $startDa[0] . ' - ' . $endDa[1] . '/' . $endDa[2] . '/' . $endDa[0];
 
-            $this->bookings = Booking::orderBy('in_date')->whereBetween('created_at', [$_GET['startDate'], $_GET['endDate']])->get();
+            $this->bookings = Booking::orderBy('created_at')->whereBetween('created_at', [$_GET['startDate'], $_GET['endDate']])->get();
         } else {
-            $this->bookings = Booking::orderBy('in_date', 'DESC')->get();
+            $this->bookings = Booking::orderBy('created_at', 'DESC')->get();
         }
     }
 
