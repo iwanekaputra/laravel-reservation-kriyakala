@@ -29,7 +29,7 @@
     </div>
 </footer>
 
-<a href="https://api.whatsapp.com/send/?phone=6282280160572&text&type=phone_number&app_absent=0"
+<a href="https://api.whatsapp.com/send/?phone=6282379466141&text&type=phone_number&app_absent=0"
     id="floating-action-button"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
 
 
