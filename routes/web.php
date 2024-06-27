@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TesController;
 use App\Http\Livewire\Background\BackgroundCreate;
 use App\Http\Livewire\Background\BackgroundEdit;
 use App\Http\Livewire\Background\BackgroundIndex;
@@ -61,6 +62,8 @@ Route::get('/price-list', function () {
 });
 Route::get('/tes', function () {
 });
+
+Route::get("testing/otomax", [TesController::class, 'tes']);
 
 
 
