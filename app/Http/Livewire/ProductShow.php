@@ -327,7 +327,7 @@ class ProductShow extends Component
 
     public function sendWa($booking)
     {
-        $token = "3qKYoN8jh!61WKHwigto";
+        $token = "RosCFdLTFNWgLRtGAht2";
         $curl = curl_init();
 
         $additional = "";
