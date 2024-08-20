@@ -48,7 +48,8 @@ class BookingEdit extends Component
         'time' => 'required'
     ];
 
-    public function mount($id) {
+    public function mount($id)
+    {
         $this->booking = Booking::find($id);
         $this->name = $this->booking->name;
         $this->email = $this->booking->email;
@@ -66,21 +67,23 @@ class BookingEdit extends Component
 
         $this->updatedSelectService();
 
+
         $this->updatedAppointment();
         $date = strtotime($this->booking->in_date);
 
+
         $additional = [];
-        if(Carbon::parse($date)->isWeekday())  {
-            foreach($this->booking->additional as $key => $value) {
-               $additionaPackage =  ServiceAdditional::where('name', $key)->where('price_weekday', $value)->first();
+        if (Carbon::parse($date)->isWeekday()) {
+            foreach ($this->booking->additional as $key => $value) {
+                $additionaPackage =  ServiceAdditional::where('name', $key)->where('price_weekday', $value)->first();
                 $additional[$additionaPackage->id] = $key;
             }
         }
 
 
-        if(Carbon::parse($date)->isWeekend())  {
-            foreach($this->booking->additional as $key => $value) {
-               $additionaPackage =  ServiceAdditional::where('name', $key)->where('price_weekday', $value)->first();
+        if (Carbon::parse($date)->isWeekend()) {
+            foreach ($this->booking->additional as $key => $value) {
+                $additionaPackage =  ServiceAdditional::where('name', $key)->where('price_weekday', $value)->first();
                 $additional[$additionaPackage->id] = $key;
             }
         }
@@ -95,75 +98,76 @@ class BookingEdit extends Component
 
 
 
-    public function updatedStudio() {
-        $this->services = Service::whereHas('studio', function($query) {
+    public function updatedStudio()
+    {
+        $this->services = Service::whereHas('studio', function ($query) {
             $query->where("name", $this->studio);
         })->get();
 
-        if($this->servicePackages) {
+        if ($this->servicePackages) {
             $this->servicePackages = null;
         }
-        if($this->serviceAdditionals) {
+        if ($this->serviceAdditionals) {
             $this->serviceAdditionals = null;
         }
 
-        if($this->selectService) {
+        if ($this->selectService) {
             $this->selectService = null;
         }
-        if($this->times) {
+        if ($this->times) {
             $this->times = null;
         }
 
-        if($this->isShowAppointment) {
+        if ($this->isShowAppointment) {
             $this->isShowAppointment = false;
             $this->appointment = null;
         } else {
             $this->isShowAppointment = true;
         }
-        if($this->times) {
+        if ($this->times) {
             $this->times = null;
         }
-
     }
-    public function updatedSelectService() {
-            $this->servicePackages = ServicePackage::whereHas('service', function($query) {
-                $query->where('name', $this->selectService);
-            })->get();
-            $this->serviceAdditionals = ServiceAdditional::whereHas('service', function($query) {
-                $query->where('name', $this->selectService);
-            })->get();
+    public function updatedSelectService()
+    {
 
-        if($this->isShowAppointment) {
+        $this->servicePackages = ServicePackage::whereHas('service', function ($query) {
+            $query->where('name', $this->selectService);
+        })->get();
+        $this->serviceAdditionals = ServiceAdditional::whereHas('servicePackage', function ($query) {
+            $query->where('name', $this->booking->package);
+        })->get();
+        // dd('ie');
+
+        if ($this->isShowAppointment) {
             $this->isShowAppointment = false;
             $this->isShowAppointment = true;
             // $this->appointment = null;
         } else {
             $this->isShowAppointment = true;
         }
-        if($this->times) {
+        if ($this->times) {
             $this->times = null;
         }
-
-
-
     }
 
-    public function updatedAppointment() {
+    public function updatedAppointment()
+    {
         $selectDate = Carbon::parse(strtotime($this->appointment));
         $getBooking = Booking::where('in_date', $this->appointment)->whereNotIn('time', [$this->time])->where('studio', $this->studio);
-        if($selectDate->isWeekday()) {
-            $this->times = Time::whereHas('service', function($query) {
+        if ($selectDate->isWeekday()) {
+            $this->times = Time::whereHas('service', function ($query) {
                 $query->where('name', $this->selectService);
-                $query->whereHas('studio', function($query) {
+                $query->whereHas('studio', function ($query) {
                     $query->where("name", $this->studio);
                 });
             })->where('type', 'weekday')->whereNotIn('hour', $getBooking->pluck('time'))->get();
         }
 
-        if($selectDate->isWeekend()) {
-            $this->times = Time::whereHas('service', function($query) {
+        if ($selectDate->isWeekend()) {
+            $this->times = Time::whereHas('service', function ($query) {
                 $query->where('name', $this->selectService);
-                $query->whereHas('studio', function($query) {
+                $query->whereHas('studio', function ($query) {
                     $query->where("name", $this->studio);
                 });
             })->where('type', 'weekend')->whereNotIn('hour', $getBooking->pluck('time'))->get();
@@ -173,7 +177,8 @@ class BookingEdit extends Component
 
 
 
-    public function update() {
+    public function update()
+    {
 
         $this->validate();
 
@@ -188,22 +193,21 @@ class BookingEdit extends Component
         $serviceAdditional = [];
         $priceAdditional = 0;
 
-        if($selectDate->isWeekday()) {
+        if ($selectDate->isWeekday()) {
             $pricePackage = $pricePackage->price_weekday;
-            foreach($this->selectedServiceAdditional as $id => $value) {
+            foreach ($this->selectedServiceAdditional as $id => $value) {
                 $getDataAdditional = ServiceAdditional::find($id);
                 $serviceAdditional[$value] = $getDataAdditional->price_weekday;
-                if($value != 'FREE' || $value != '0') {
+                if ($value != 'FREE' || $value != '0') {
                     $priceAdditional += (int) $getDataAdditional->price_weekday;
                 }
             }
-
-        } else if($selectDate->isWeekend()) {
+        } else if ($selectDate->isWeekend()) {
             $pricePackage = $pricePackage->price_weekend;
-            foreach($this->selectedServiceAdditional as $id => $value) {
+            foreach ($this->selectedServiceAdditional as $id => $value) {
                 $getDataAdditional = ServiceAdditional::find($id);
                 $serviceAdditional[$value] = $getDataAdditional->price_weekend;
-                if($value != 'FREE' || $value != '0') {
+                if ($value != 'FREE' || $value != '0') {
                     $priceAdditional += (int) $getDataAdditional->price_weekend;
                 }
             }
@@ -229,7 +233,7 @@ class BookingEdit extends Component
             'status_payment' => $dataBooking->status_payment
         ]);
 
-        if($booking) {
+        if ($booking) {
             $this->dispatchBrowserEvent('swal:modal', [
                 'type' => 'success',
                 'message' => 'Berhasil edit',
@@ -238,10 +242,6 @@ class BookingEdit extends Component
                 'redirect' => 'moveToIndex'
             ]);
         }
-
-
-
-
     }
 
     public function moveToIndex()
